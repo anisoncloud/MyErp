@@ -2,6 +2,7 @@
 using MyErp.ViewModels;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace MyErp.Controllers
 {
@@ -18,9 +19,10 @@ namespace MyErp.Controllers
             _roleManager = roleManager;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            return View();
+            var user = await _userManager.Users.ToListAsync();
+            return View(user);
         }
 
         public IActionResult Login()
