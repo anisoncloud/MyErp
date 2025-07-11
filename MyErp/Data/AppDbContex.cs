@@ -9,6 +9,7 @@ namespace MyErp.Data
         public AppDbContex(DbContextOptions<AppDbContex> options) : base(options)
         {
         }
-    
+
+        public DbSet<UserDetails> UserDetails { get; set; }
     }
 }
