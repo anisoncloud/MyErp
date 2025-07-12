@@ -19,7 +19,7 @@ namespace MyErp.Controllers
         {
             return View();
         }
-
+        [HttpGet]
         public IActionResult Edit(string userId)
         {
             //var user = _userManager.Users.FirstOrDefault(u => u.Id == userId);
@@ -30,12 +30,32 @@ namespace MyErp.Controllers
             {
                 UserId = userId,
                 FullName = user?.FullName,
-                PhoneNumberOne = user?.UserDetails?.PhoneNumberOne
+                PhoneNumberOne = user?.UserDetails?.PhoneNumberOne,
+                PhoneNumberTwo = user?.UserDetails?.PhoneNumberTwo,
+                AddressOne = user?.UserDetails?.AddressOne,
+                AddressTwo = user?.UserDetails?.AddressTwo
             };
 
 
             return View(userDetails);
 
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> EditUser(AccountDetailsViewModel model, string userId)
+        {
+            var user = _userManager.Users.FirstOrDefault(x=>x.Id == userId);
+            if (user == null) 
+            {
+                return NotFound("User not available.");
+            }
+
+            if (ModelState.IsValid)
+            {
+                
+            }
+            return View();
         }
 
     }

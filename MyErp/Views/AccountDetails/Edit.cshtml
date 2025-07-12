@@ -2,14 +2,46 @@
 @using MyErp.ViewModels
 @model AccountDetailsViewModel
 
+@{
+ViewData["title"] = "Edit Account Details";
+}
     
-        <div class="card mb-3">
-            <div class="card-body">
-                <h5 class="card-title">@Model.FullName</h5>
-                <p class="card-text">@Model.AddressTwo</p>
-                <p class="card-text">@Model.UserId</p>
-                
-            </div>
-        </div>
+<form asp-action="EditUser" class="mt-4">
+    @Html.AntiForgeryToken()
+    <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+    <input type="hidden" value="@Model.UserId" name="userId"/>
+    <div class="mb-3">
+        <label asp-for="FullName" class="form-label"></label>
+        <input asp-for="FullName" class="form-control" />
+        <span asp-validation-for="FullName" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+        <label asp-for="PhoneNumberOne" class="form-label"></label>
+        <input asp-for="PhoneNumberOne" class="form-control" />
+        <span asp-validation-for="PhoneNumberOne" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+        <label asp-for="PhoneNumberTwo" class="form-label"></label>
+        <input asp-for="PhoneNumberTwo" type="password" class="form-control" />
+        <span asp-validation-for="PhoneNumberTwo" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+        <label asp-for="AddressOne" class="form-label"></label>
+        <input asp-for="AddressOne" type="password" class="form-control" />
+        <span asp-validation-for="AddressOne" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+        <label asp-for="AddressTwo" class="form-label"></label>
+        <input asp-for="AddressTwo" type="password" class="form-control" />
+        <span asp-validation-for="AddressTwo" class="text-danger"></span>
+    </div>
+
+    <button type="submit" value="Edit" class="btn btn-success w-100 p-2">Update</button>
+    
+    <div class="text-center">
+        <a asp-action="Index" asp-controller="Home" class="text-decoration-none mt-3">Back</a>
+    </div>
+</form>
+        
 
 
