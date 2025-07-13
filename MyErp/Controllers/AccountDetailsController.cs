@@ -43,7 +43,7 @@ namespace MyErp.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> EditUser(AccountDetailsViewModel model, string userId)
+        public async Task<IActionResult> EditUser(AccountDetailsViewModel userDetailsToUpdate, string userId)
         {
             var user = _userManager.Users.FirstOrDefault(x=>x.Id == userId);
             if (user == null) 
@@ -53,7 +53,43 @@ namespace MyErp.Controllers
 
             if (ModelState.IsValid)
             {
-                
+                var userDetails = _userManager.Users
+                    .Include(u => u.UserDetails)
+                    .FirstOrDefault(u => u.Id == userDetailsToUpdate.UserId);
+
+
+                userDetails.FullName = userDetailsToUpdate.FullName;
+
+                if (userDetails.UserDetails != null)
+                {                    
+                        userDetails.UserDetails.PhoneNumberOne = userDetailsToUpdate.PhoneNumberOne;
+                        userDetails.UserDetails.PhoneNumberTwo = userDetailsToUpdate.PhoneNumberTwo;
+                        userDetails.UserDetails.AddressOne = userDetailsToUpdate.AddressOne;
+                        userDetails.UserDetails.AddressTwo = userDetailsToUpdate.AddressTwo;                    
+                }
+                else
+                {
+                     userDetails.UserDetails = new UserDetails
+                    {
+                        PhoneNumberOne = userDetailsToUpdate.PhoneNumberOne,
+                        PhoneNumberTwo = userDetailsToUpdate.PhoneNumberTwo,
+                        AddressOne = userDetailsToUpdate.AddressOne,
+                        AddressTwo = userDetailsToUpdate.AddressTwo
+                    };
+                }
+                    
+                var result = await _userManager.UpdateAsync(userDetails);
+                if (result.Succeeded)
+                {
+                    return RedirectToAction("Index", "Account");
+                }
+                else
+                {
+                    foreach (var error in result.Errors)
+                    {
+                        ModelState.AddModelError(string.Empty, error.Description);
+                    }
+                }
             }
             return View();
         }
