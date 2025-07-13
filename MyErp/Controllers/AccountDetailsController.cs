@@ -57,7 +57,6 @@ namespace MyErp.Controllers
                     .Include(u => u.UserDetails)
                     .FirstOrDefault(u => u.Id == userDetailsToUpdate.UserId);
 
-
                 userDetails.FullName = userDetailsToUpdate.FullName;
 
                 if (userDetails.UserDetails != null)
