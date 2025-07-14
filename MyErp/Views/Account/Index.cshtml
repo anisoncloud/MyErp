@@ -20,10 +20,26 @@
                 <td>@user.Email</td>
                 <td></td>
                 <td>
-                    <a asp-action="Edit" asp-controller="AccountDetails" asp-route-userId="@user.Id" class="btn btn-primary">Edit</a>
-                    <form asp-action="DeleteUser" asp-route-id="@user.Id" method="post" class="d-inline-block">
-                        <button type="submit" class="btn btn-danger">Delete</button>
-                    </form>
+                    
+                        <ul class="navbar-nav ms-auto align-items-center">
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                Actions </a>
+                                <ul class="dropdown-menu dropdown-menu-end">
+                                    <li><a asp-action="Edit" asp-controller="AccountDetails" asp-route-userId="@user.Id" class="dropdown-item">Edit</a></li>
+                                    <li><a asp-action="AssignRole" asp-controller="Role" asp-route-userId="@user.Id" class="dropdown-item">Assign Role</a></li>
+                                    <li>
+                                        <form asp-action="DeleteUser" asp-route-id="@user.Id" method="post" class="d-inline-block">
+                                            <button type="submit" class="btn btn-danger">Delete</button>
+                                        </form>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                   
+                    
+                    
+                    
                 </td>
             </tr>
         }

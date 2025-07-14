@@ -1,0 +1,15 @@
+﻿@using Microsoft.AspNetCore.Identity
+@model MyErp.ViewModels.UserRoleViewModel
+
+
+@{
+    ViewData["Title"] = "Assign Role";
+    Layout = "_Layout";
+}
+
+
+
+<form action="/" method="post">
+    @Model.UserId <br/>
+    @Model.UserName
+</form>

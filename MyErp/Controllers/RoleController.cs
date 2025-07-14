@@ -59,5 +59,62 @@ namespace MyErp.Controllers
             }
             return View();
         }
+
+        [HttpGet]
+        public async Task<IActionResult> AssignRole(string userId)
+        {
+            var user = _userManager.Users.FirstOrDefault(u => u.Id == userId);
+            var roles = _roleManager.Roles.ToList();
+            var userRoles = await _userManager.GetRolesAsync(user);
+
+
+            var viewModel = new UserRoleViewModel
+            {
+                UserId = userId,
+                UserName = user?.UserName ?? "Unknown User",
+                Roles = roles.Select(role => new RoleSelection
+                {
+                    RoleName = role.Name,
+                    IsSelected = userRoles.Contains(role.Name)
+                }).ToList()
+            };
+            return View(viewModel);
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> AssignRole(string userId, string roleName)
+        {
+            if (string.IsNullOrEmpty(roleName))
+            {
+                ModelState.AddModelError("", "Role name cannot be empty.");
+                return View();
+            }
+            var user = await _userManager.FindByIdAsync(userId);
+            if (user == null)
+            {
+                ModelState.AddModelError("", "User not found.");
+                return View();
+            }
+            if (await _roleManager.RoleExistsAsync(roleName))
+            {
+                var result = await _userManager.AddToRoleAsync(user, roleName);
+                if (result.Succeeded)
+                {
+                    return RedirectToAction("Index");
+                }
+                else
+                {
+                    foreach (var error in result.Errors)
+                    {
+                        ModelState.AddModelError("", error.Description);
+                    }
+                }
+            }
+            else
+            {
+                ModelState.AddModelError("", "Role does not exist.");
+            }
+            return View();
+        }
     }
 }
