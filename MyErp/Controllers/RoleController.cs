@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using MyErp.Models;
 using MyErp.ViewModels;
 
@@ -59,7 +60,6 @@ namespace MyErp.Controllers
             }
             return View();
         }
-
         [HttpGet]
         public async Task<IActionResult> AssignRole(string userId)
         {
@@ -67,19 +67,40 @@ namespace MyErp.Controllers
             var roles = _roleManager.Roles.ToList();
             var userRoles = await _userManager.GetRolesAsync(user);
 
-
-            var viewModel = new UserRoleViewModel
-            {
-                UserId = userId,
-                UserName = user?.UserName ?? "Unknown User",
-                Roles = roles.Select(role => new RoleSelection
-                {
-                    RoleName = role.Name,
-                    IsSelected = userRoles.Contains(role.Name)
-                }).ToList()
+            var listUserRoles = new List<SelectListItem>();
+            foreach (var role in roles) {
+                var hasRoles = userRoles.Any(ur=>ur.Contains(role.Name));
+                listUserRoles.Add(new SelectListItem(role.Name, role.Id, hasRoles));
             };
-            return View(viewModel);
+            var theUser = new UserRoleViewModel()
+            {
+                UserName = user.UserName,
+                UserId = userId,
+                Roles = listUserRoles
+            };
+
+            return View(theUser);
+
         }
+
+        //[HttpGet]
+        //public async Task<IActionResult> AssignRole(string userId)
+        //{
+        //    var user = _userManager.Users.FirstOrDefault(u => u.Id == userId);
+        //    var roles = _roleManager.Roles.ToList();
+        //    var userRoles = await _userManager.GetRolesAsync(user);
+        //    var viewModel = new UserRoleViewModel
+        //    {
+        //        UserId = userId,
+        //        UserName = user?.UserName ?? "Unknown User",
+        //        Roles = roles.Select(role => new RoleSelection
+        //        {
+        //            RoleName = role.Name,
+        //            IsSelected = userRoles.Contains(role.Name)
+        //        }).ToList()
+        //    };
+        //    return View(viewModel);
+        //}
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> AssignRole(string userId, string roleName)
