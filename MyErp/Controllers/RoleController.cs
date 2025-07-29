@@ -60,7 +60,7 @@ namespace MyErp.Controllers
             }
             return View();
         }
-        [HttpGet]
+        /*[HttpGet]
         public async Task<IActionResult> AssignRole(string userId)
         {
             var user = _userManager.Users.FirstOrDefault(u => u.Id == userId);
@@ -81,26 +81,26 @@ namespace MyErp.Controllers
 
             return View(theUser);
 
-        }
+        }*/
 
-        //[HttpGet]
-        //public async Task<IActionResult> AssignRole(string userId)
-        //{
-        //    var user = _userManager.Users.FirstOrDefault(u => u.Id == userId);
-        //    var roles = _roleManager.Roles.ToList();
-        //    var userRoles = await _userManager.GetRolesAsync(user);
-        //    var viewModel = new UserRoleViewModel
-        //    {
-        //        UserId = userId,
-        //        UserName = user?.UserName ?? "Unknown User",
-        //        Roles = roles.Select(role => new RoleSelection
-        //        {
-        //            RoleName = role.Name,
-        //            IsSelected = userRoles.Contains(role.Name)
-        //        }).ToList()
-        //    };
-        //    return View(viewModel);
-        //}
+        [HttpGet]
+        public async Task<IActionResult> AssignRole(string userId)
+        {
+            var user = _userManager.Users.FirstOrDefault(u => u.Id == userId);
+            var roles = _roleManager.Roles.ToList();
+            var userRoles = await _userManager.GetRolesAsync(user);
+            var viewModel = new UserRoleViewModel
+            {
+                UserId = userId,
+                UserName = user?.UserName ?? "Unknown User",
+                Roles = roles.Select(role => new RoleSelection
+                {
+                    RoleName = role.Name,
+                    IsSelected = userRoles.Contains(role.Name)
+                }).ToList()
+            };
+            return View(viewModel);
+        }
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> AssignRole(string userId, string roleName)
