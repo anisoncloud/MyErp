@@ -5,8 +5,24 @@
 *@
 @{
 }
-
-@foreach(var mainCategory in Model)
+<a asp-action="Create">Create</a>
+<table class="table table-striped">
+    <tr>
+        <th>@Html.DisplayNameFor(Model=>Model.ID)</th>
+        <th>@Html.DisplayNameFor(Model=>Model.CategoryName)</th>
+        <th>@Html.DisplayNameFor(Model=>Model.Description)</th>
+    </tr>
+    @foreach(var mainCategory in Model)
 {
-    @mainCategory.CategoryName;
-}
+    <tr>
+            <td>@mainCategory.ID</td>
+            <td>@mainCategory.CategoryName</td>
+            <td>@mainCategory.Description</td>
+    </tr>
+    }
+</table>
+
+
+
+    
+
