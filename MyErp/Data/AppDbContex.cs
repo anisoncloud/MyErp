@@ -11,5 +11,6 @@ namespace MyErp.Data
         }
 
         public DbSet<UserDetails> UserDetails { get; set; }
+        public DbSet<MainCategory> MainCategories { get; set; }
     }
 }
