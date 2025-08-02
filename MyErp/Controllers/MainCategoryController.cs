@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using MyErp.Data;
 using MyErp.Models;
+using MyErp.ViewModels;
 
 namespace MyErp.Controllers
 {
@@ -28,15 +29,20 @@ namespace MyErp.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(MainCategory mainCategory)
+        public IActionResult Create(MainCategoryViewModel mainCategoryVm)
         {
             if (ModelState.IsValid)
-            {                
-                await _context.MainCategories.AddAsync(mainCategory);
-                await _context.SaveChangesAsync();
+            {
+                var mainCategory = new MainCategory()
+                {
+                    CategoryName = mainCategoryVm.CategoryName
+                };
+                            
+                _context.MainCategories.Add(mainCategory);
+                _context.SaveChanges();
                 return RedirectToAction("Index");
             }
-            return View(mainCategory);
+            return View(mainCategoryVm);
         }
     }
 }

@@ -1,6 +1,7 @@
-﻿using MyErp.Models;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using MyErp.Models;
+using System.Reflection.Emit;
 
 namespace MyErp.Data
 {
@@ -17,6 +18,7 @@ namespace MyErp.Data
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
+            base.OnModelCreating(builder); // this is required
             builder.Entity<ProductMainCategory>()
                 .HasKey(c => new { c.ProductId, c.CategoryId }); // Defines the key of this table
             builder.Entity<ProductMainCategory>()
@@ -24,9 +26,9 @@ namespace MyErp.Data
                 .WithMany(pc => pc.ProductMainCategories) // A product can be relate to many ProductMainCategory entries. Many row in join table. So One Product-> Many ProductMainCategory Rows. 
                 .HasForeignKey(pc => pc.ProductId);
             builder.Entity<ProductMainCategory>()
-                .HasOne(pc=>pc.MainCategory) // ProductMainCategory has one MainCategory. A single row in ProductMainCategory Points to one MainCategory
-                .WithMany(pc=>pc.ProductMainCategories) // A MainCategory can be relate to many ProductMainCategory entries. Many row in join table. So One MainCategory-> Many ProductMainCategory Rows. Same as, One Product-> Many ProductMainCategory Rows.
-                .HasForeignKey(pc=>pc.CategoryId);
+                .HasOne(pc => pc.MainCategory) // ProductMainCategory has one MainCategory. A single row in ProductMainCategory Points to one MainCategory
+                .WithMany(pc => pc.ProductMainCategories) // A MainCategory can be relate to many ProductMainCategory entries. Many row in join table. So One MainCategory-> Many ProductMainCategory Rows. Same as, One Product-> Many ProductMainCategory Rows.
+                .HasForeignKey(pc => pc.CategoryId);
         }
     }
 }
