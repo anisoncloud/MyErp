@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using MyErp.Data;
 
@@ -11,9 +12,11 @@ using MyErp.Data;
 namespace MyErp.Migrations
 {
     [DbContext(typeof(AppDbContex))]
-    partial class AppDbContexModelSnapshot : ModelSnapshot
+    [Migration("20250803172210_TablePost")]
+    partial class TablePost
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -215,24 +218,6 @@ namespace MyErp.Migrations
                     b.ToTable("PostCategories");
                 });
 
-            modelBuilder.Entity("MyErp.Models.PostCategoryPost", b =>
-                {
-                    b.Property<int>("CategoryId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("PostId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Id")
-                        .HasColumnType("int");
-
-                    b.HasKey("CategoryId", "PostId");
-
-                    b.HasIndex("PostId");
-
-                    b.ToTable("PostCategoryPosts");
-                });
-
             modelBuilder.Entity("MyErp.Models.Product", b =>
                 {
                     b.Property<int>("ID")
@@ -424,25 +409,6 @@ namespace MyErp.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("MyErp.Models.PostCategoryPost", b =>
-                {
-                    b.HasOne("MyErp.Models.PostCategory", "PostCategory")
-                        .WithMany("PostCategoryPosts")
-                        .HasForeignKey("CategoryId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("MyErp.Models.Post", "Post")
-                        .WithMany("PostCategoryPosts")
-                        .HasForeignKey("PostId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Post");
-
-                    b.Navigation("PostCategory");
-                });
-
             modelBuilder.Entity("MyErp.Models.ProductMainCategory", b =>
                 {
                     b.HasOne("MyErp.Models.MainCategory", "MainCategory")
@@ -476,16 +442,6 @@ namespace MyErp.Migrations
             modelBuilder.Entity("MyErp.Models.MainCategory", b =>
                 {
                     b.Navigation("ProductMainCategories");
-                });
-
-            modelBuilder.Entity("MyErp.Models.Post", b =>
-                {
-                    b.Navigation("PostCategoryPosts");
-                });
-
-            modelBuilder.Entity("MyErp.Models.PostCategory", b =>
-                {
-                    b.Navigation("PostCategoryPosts");
                 });
 
             modelBuilder.Entity("MyErp.Models.Product", b =>

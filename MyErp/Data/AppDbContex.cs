@@ -16,6 +16,8 @@ namespace MyErp.Data
         public DbSet<Product> Products { get; set; }
         public DbSet<ProductMainCategory> ProductMainCategories { get; set; }
         public DbSet<PostCategory> PostCategories { get; set; }
+        public DbSet<Post> Posts { get; set; }
+        public DbSet<PostCategoryPost> PostCategoryPosts { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
@@ -30,6 +32,18 @@ namespace MyErp.Data
                 .HasOne(pc => pc.MainCategory) // ProductMainCategory has one MainCategory. A single row in ProductMainCategory Points to one MainCategory
                 .WithMany(pc => pc.ProductMainCategories) // A MainCategory can be relate to many ProductMainCategory entries. Many row in join table. So One MainCategory-> Many ProductMainCategory Rows. Same as, One Product-> Many ProductMainCategory Rows.
                 .HasForeignKey(pc => pc.CategoryId);
+
+
+            builder.Entity<PostCategoryPost>()
+                .HasKey(x => new { x.CategoryId, x.PostId });
+            builder.Entity<PostCategoryPost>()
+                .HasOne(m => m.Post)
+                .WithMany(m => m.PostCategoryPosts)
+                .HasForeignKey(m=>m.PostId);
+            builder.Entity<PostCategoryPost>()
+                .HasOne(p => p.PostCategory)
+                .WithMany(p => p.PostCategoryPosts)
+                .HasForeignKey(p => p.CategoryId);
         }
     }
 }
