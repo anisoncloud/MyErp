@@ -15,6 +15,7 @@ namespace MyErp.Data
         public DbSet<MainCategory> MainCategories { get; set; }
         public DbSet<Product> Products { get; set; }
         public DbSet<ProductMainCategory> ProductMainCategories { get; set; }
+        public DbSet<PostCategory> PostCategories { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
