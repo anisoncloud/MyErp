@@ -1,4 +1,4 @@
-﻿@model MyErp.Models.Post
+﻿@model MyErp.ViewModels.PostViewModel
 @*
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
@@ -8,27 +8,25 @@
     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 @Html.AntiForgeryToken()
 <h4>Select Category</h4>
+@foreach(var category in Model.AllPostCategories)
+{
     <div class="form-check">
-        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-        <label class="form-check-label" for="flexCheckDefault">
-            Default checkbox
+            <input class="form-check-input" type="checkbox" value="@category.Value" id="" name="SelectPostCategoryIds">
+        <label class="form-check-label">
+            @category.Text
         </label>
     </div>
-    <div class="form-check">
-        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-        <label class="form-check-label" for="flexCheckDefault">
-            Default checkbox
-        </label>
-    </div>
+}
+    
     <h4>Create Post</h4>
     <div class="mb-3">
-        <label asp-for="Title" class="control-label"></label>
-        <input asp-for="Title" class="form-control" />
-        <span asp-validation-for="Title" class="text-danger"></span>
+        <label asp-for="PostName" class="control-label"></label>
+        <input asp-for="PostName" class="form-control" />
+        <span asp-validation-for="PostName" class="text-danger"></span>
     </div>
     <div class="mb-3">
         <label asp-for="Body" class="control-label"></label>
-        <input asp-for="Body" class="form-control" />
+        <textarea asp-for="Body" class="form-control" rows="3" ></textarea>
         <span asp-validation-for="Body" class="text-danger"></span>
     </div>
         <button type="submit" value="Create" class="btn btn-primary w-50">Create</button>

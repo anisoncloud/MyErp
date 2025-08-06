@@ -17,6 +17,10 @@
         <tr>
             <td>@post.Title</td>
             <td>@post.Body</td>
+            <td></td>
+            <td>
+                <a asp-action="Edit" asp-route-Id="@post.PostId">Edit</a>
+            </td>
         </tr>
     }
 </table>

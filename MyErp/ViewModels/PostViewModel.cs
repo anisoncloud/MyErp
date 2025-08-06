@@ -4,6 +4,7 @@ namespace MyErp.ViewModels
 {
     public class PostViewModel
     {
+        public int Id { get; set; }
         public string PostName { get; set; }
         public string Body { get; set; }
         public List<int> SelectPostCategoryIds { get; set; }
