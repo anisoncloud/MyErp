@@ -18,6 +18,7 @@ namespace MyErp.Data
         public DbSet<PostCategory> PostCategories { get; set; }
         public DbSet<Post> Posts { get; set; }
         public DbSet<PostCategoryPost> PostCategoryPosts { get; set; }
+        public DbSet<People> Peoples { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
@@ -27,11 +28,13 @@ namespace MyErp.Data
             builder.Entity<ProductMainCategory>()
                 .HasOne(pc => pc.Product) //ProductMainCategory Table has one product. A single row in ProductMainCategory points to one Product
                 .WithMany(pc => pc.ProductMainCategories) // A product can be relate to many ProductMainCategory entries. Many row in join table. So One Product-> Many ProductMainCategory Rows. 
-                .HasForeignKey(pc => pc.ProductId);
+                .HasForeignKey(pc => pc.ProductId)
+                .OnDelete(DeleteBehavior.Cascade);
             builder.Entity<ProductMainCategory>()
                 .HasOne(pc => pc.MainCategory) // ProductMainCategory has one MainCategory. A single row in ProductMainCategory Points to one MainCategory
                 .WithMany(pc => pc.ProductMainCategories) // A MainCategory can be relate to many ProductMainCategory entries. Many row in join table. So One MainCategory-> Many ProductMainCategory Rows. Same as, One Product-> Many ProductMainCategory Rows.
-                .HasForeignKey(pc => pc.CategoryId);
+                .HasForeignKey(pc => pc.CategoryId)
+                .OnDelete(DeleteBehavior.Cascade);
 
 
             builder.Entity<PostCategoryPost>()
@@ -39,11 +42,13 @@ namespace MyErp.Data
             builder.Entity<PostCategoryPost>()
                 .HasOne(m => m.Post)
                 .WithMany(m => m.PostCategoryPosts)
-                .HasForeignKey(m=>m.PostId);
+                .HasForeignKey(m=>m.PostId)
+                .OnDelete(DeleteBehavior.Cascade);
             builder.Entity<PostCategoryPost>()
                 .HasOne(p => p.PostCategory)
                 .WithMany(p => p.PostCategoryPosts)
-                .HasForeignKey(p => p.CategoryId);
+                .HasForeignKey(p => p.CategoryId)
+                .OnDelete(DeleteBehavior.Cascade);
         }
     }
 }

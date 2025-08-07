@@ -1,0 +1,28 @@
+﻿@model IEnumerable<MyErp.Models.People>
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+<h2><a asp-action="Create">People Create</a></h2>
+<table>
+    <tr>
+        <th>Name</th>
+        <th>Description</th>
+        <th>Action</th>
+    </tr>
+    @foreach(var people in Model)
+    {
+        <tr>
+            <td>@people.Name</td>
+            <td>@people.Description</td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@people.Id">Edit</a>
+                <a asp-action="Details">Details</a>
+                <form asp-action="Delete" asp-route-id="@people.Id" method="post">                    
+                    <button class="btn btn-link link-danger">Delete</button>
+                </form>
+            </td>
+        </tr>
+    }
+</table>
