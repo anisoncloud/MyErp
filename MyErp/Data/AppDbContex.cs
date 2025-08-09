@@ -19,6 +19,8 @@ namespace MyErp.Data
         public DbSet<Post> Posts { get; set; }
         public DbSet<PostCategoryPost> PostCategoryPosts { get; set; }
         public DbSet<People> Peoples { get; set; }
+        public DbSet<Project> Projects { get; set; }
+        public DbSet<PeopleProject> PeopleProjects { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
@@ -36,7 +38,7 @@ namespace MyErp.Data
                 .HasForeignKey(pc => pc.CategoryId)
                 .OnDelete(DeleteBehavior.Cascade);
 
-
+            //Post and Post Category Relation
             builder.Entity<PostCategoryPost>()
                 .HasKey(x => new { x.CategoryId, x.PostId });
             builder.Entity<PostCategoryPost>()
@@ -48,6 +50,20 @@ namespace MyErp.Data
                 .HasOne(p => p.PostCategory)
                 .WithMany(p => p.PostCategoryPosts)
                 .HasForeignKey(p => p.CategoryId)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            //People and Project Relation
+            builder.Entity<PeopleProject>()
+                .HasKey(x=>new {x.PeopleId, x.ProjectId});
+            builder.Entity<PeopleProject>()
+                .HasOne(p => p.People)
+                .WithMany(p=>p.PeopleProjects)
+                .HasForeignKey(p=>p.PeopleId)
+                .OnDelete(DeleteBehavior.Cascade);
+            builder.Entity<PeopleProject>()
+                .HasOne(p => p.Project)
+                .WithMany(p=>p.PeopleProjects)
+                .HasForeignKey(p=>p.ProjectId)
                 .OnDelete(DeleteBehavior.Cascade);
         }
     }

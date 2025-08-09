@@ -75,13 +75,12 @@ namespace MyErp.Controllers
             {
                 return NotFound();
             }
-            if (ModelState.IsValid)
-            {
+            
                 post.Title = postViewModel.PostName;
-                    post.PostCategoryPosts.Clear();
+                post.PostCategoryPosts.Clear();
                 post.PostCategoryPosts = postViewModel.SelectPostCategoryIds
                     .Select(postCatId=>new PostCategoryPost { CategoryId=postCatId, PostId=postCatId}).ToList();
-            }
+            
             _context.SaveChanges();
             return RedirectToAction("Index");
         }

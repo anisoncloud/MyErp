@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using MyErp.Data;
 
@@ -11,9 +12,11 @@ using MyErp.Data;
 namespace MyErp.Migrations
 {
     [DbContext(typeof(AppDbContex))]
-    partial class AppDbContexModelSnapshot : ModelSnapshot
+    [Migration("20250808062427_ProjectTable")]
+    partial class ProjectTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -193,24 +196,6 @@ namespace MyErp.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Peoples");
-                });
-
-            modelBuilder.Entity("MyErp.Models.PeopleProject", b =>
-                {
-                    b.Property<int>("PeopleId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("ProjectId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Id")
-                        .HasColumnType("int");
-
-                    b.HasKey("PeopleId", "ProjectId");
-
-                    b.HasIndex("ProjectId");
-
-                    b.ToTable("PeopleProjects");
                 });
 
             modelBuilder.Entity("MyErp.Models.Post", b =>
@@ -479,25 +464,6 @@ namespace MyErp.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("MyErp.Models.PeopleProject", b =>
-                {
-                    b.HasOne("MyErp.Models.People", "People")
-                        .WithMany("PeopleProjects")
-                        .HasForeignKey("PeopleId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("MyErp.Models.Project", "Project")
-                        .WithMany("PeopleProjects")
-                        .HasForeignKey("ProjectId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("People");
-
-                    b.Navigation("Project");
-                });
-
             modelBuilder.Entity("MyErp.Models.PostCategoryPost", b =>
                 {
                     b.HasOne("MyErp.Models.PostCategory", "PostCategory")
@@ -552,11 +518,6 @@ namespace MyErp.Migrations
                     b.Navigation("ProductMainCategories");
                 });
 
-            modelBuilder.Entity("MyErp.Models.People", b =>
-                {
-                    b.Navigation("PeopleProjects");
-                });
-
             modelBuilder.Entity("MyErp.Models.Post", b =>
                 {
                     b.Navigation("PostCategoryPosts");
@@ -570,11 +531,6 @@ namespace MyErp.Migrations
             modelBuilder.Entity("MyErp.Models.Product", b =>
                 {
                     b.Navigation("ProductMainCategories");
-                });
-
-            modelBuilder.Entity("MyErp.Models.Project", b =>
-                {
-                    b.Navigation("PeopleProjects");
                 });
 
             modelBuilder.Entity("MyErp.Models.Users", b =>

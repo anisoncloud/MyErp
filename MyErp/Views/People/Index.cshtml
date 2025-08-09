@@ -5,7 +5,7 @@
 @{
 }
 <h2><a asp-action="Create">People Create</a></h2>
-<table>
+<table class="table table-striped">
     <tr>
         <th>Name</th>
         <th>Description</th>
@@ -19,7 +19,7 @@
             <td>
                 <a asp-action="Edit" asp-route-id="@people.Id">Edit</a>
                 <a asp-action="Details">Details</a>
-                <form asp-action="Delete" asp-route-id="@people.Id" method="post">                    
+                <form asp-action="Delete" asp-route-id="@people.Id" method="post" style="display:inline;">
                     <button class="btn btn-link link-danger">Delete</button>
                 </form>
             </td>

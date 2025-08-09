@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 using MyErp.Data;
 using MyErp.Models;
 
@@ -28,6 +29,7 @@ namespace MyErp.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Create(People people)
         {
+            ModelState.Remove("PeopleProjects");
             if (ModelState.IsValid)
             {
                 _context.Peoples.Add(people);
