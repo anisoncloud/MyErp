@@ -1,5 +1,4 @@
-﻿@using Microsoft.AspNetCore.Identity
-@model MyErp.ViewModels.UserRoleViewModel
+﻿@model MyErp.ViewModels.UserRoleViewModel
 
 
 @{
@@ -8,26 +7,8 @@
 }
 
 
-
-
-@* <form asp-action="AssignRole" method="post">
-    <input type="hidden" asp-for="UserId" />
-    @Model.UserId <br />
-    @Model.UserName
-    @for (int i = 0; i < Model.Roles.Count(); i++)
-    {
-        <div>
-            <input asp-for="Roles[i].Selected" />
-            <label>@Model.Roles[i].Text</label>
-            <input type="hidden" asp-for="Roles[i].Value" />
-        </div>
-    }
-
-    <button type="submit" value="AssignRole">Update Roles</button>
-</form> *@
-
-<form asp-action="/" method="post">
-    <input type="hidden" asp-for="UserId" />
+<form asp-action="AssignRole" method="post">
+    <input hidden asp-for="UserId" />
     @Model.UserId <br />
     @Model.UserName
     @for (int i = 0; i < Model.Roles.Count; i++)
@@ -41,3 +22,5 @@
 
     <button type="submit">Update Roles</button>
 </form>
+
+

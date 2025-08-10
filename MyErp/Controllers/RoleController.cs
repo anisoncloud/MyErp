@@ -60,82 +60,56 @@ namespace MyErp.Controllers
             }
             return View();
         }
-        /*[HttpGet]
-        public async Task<IActionResult> AssignRole(string userId)
-        {
-            var user = _userManager.Users.FirstOrDefault(u => u.Id == userId);
-            var roles = _roleManager.Roles.ToList();
-            var userRoles = await _userManager.GetRolesAsync(user);
-
-            var listUserRoles = new List<SelectListItem>();
-            foreach (var role in roles) {
-                var hasRoles = userRoles.Any(ur=>ur.Contains(role.Name));
-                listUserRoles.Add(new SelectListItem(role.Name, role.Id, hasRoles));
-            };
-            var theUser = new UserRoleViewModel()
-            {
-                UserName = user.UserName,
-                UserId = userId,
-                Roles = listUserRoles
-            };
-
-            return View(theUser);
-
-        }*/
-
+        //Original Get
         [HttpGet]
-        public async Task<IActionResult> AssignRole(string userId)
+        public async Task<IActionResult> AssignRole(string id)
         {
-            var user = _userManager.Users.FirstOrDefault(u => u.Id == userId);
-            var roles = _roleManager.Roles.ToList();
-            var userRoles = await _userManager.GetRolesAsync(user);
-            var viewModel = new UserRoleViewModel
+            //var user = _userManager.Users.FirstOrDefault(u => u.Id == userId);
+            var user = await _userManager.FindByIdAsync(id);
+            if (user == null)
             {
-                UserId = userId,
-                UserName = user?.UserName ?? "Unknown User",
-                Roles = roles.Select(role => new RoleSelection
+                return NotFound();
+            }
+            var allRoles = _roleManager.Roles.ToList();
+            var userRoles = await _userManager.GetRolesAsync(user);
+
+            var model = new UserRoleViewModel
+            {
+                UserId = user.Id,
+                Roles = allRoles.Select(role => new RoleSelection
                 {
                     RoleName = role.Name,
                     IsSelected = userRoles.Contains(role.Name)
                 }).ToList()
             };
-            return View(viewModel);
+
+            return View(model);
+
         }
+
+
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> AssignRole(string userId, string roleName)
+        public async Task<IActionResult> AssignRole(UserRoleViewModel vm)
         {
-            if (string.IsNullOrEmpty(roleName))
-            {
-                ModelState.AddModelError("", "Role name cannot be empty.");
-                return View();
-            }
-            var user = await _userManager.FindByIdAsync(userId);
+            
+            var user = await _userManager.FindByIdAsync(vm.UserId);
             if (user == null)
             {
                 ModelState.AddModelError("", "User not found.");
                 return View();
             }
-            if (await _roleManager.RoleExistsAsync(roleName))
-            {
-                var result = await _userManager.AddToRoleAsync(user, roleName);
-                if (result.Succeeded)
-                {
-                    return RedirectToAction("Index");
-                }
-                else
-                {
-                    foreach (var error in result.Errors)
-                    {
-                        ModelState.AddModelError("", error.Description);
-                    }
-                }
-            }
-            else
-            {
-                ModelState.AddModelError("", "Role does not exist.");
-            }
-            return View();
+            var existingRoles = await _userManager.GetRolesAsync(user);
+            var selectedRoles = vm.Roles.Where(r=>r.IsSelected).Select(r=>r.RoleName).ToList();
+            
+            //remove unselected roles
+            var rolesToRemove = existingRoles.Except(selectedRoles);
+            await _userManager.RemoveFromRolesAsync(user, rolesToRemove);
+
+            //Add newly selected roles
+            var rolesToAdd = selectedRoles.Except(existingRoles);
+            await _userManager.AddToRolesAsync(user, rolesToAdd);
+            return RedirectToAction("Index", "Account");
         }
     }
 }
