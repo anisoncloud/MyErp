@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
+using Microsoft.EntityFrameworkCore;
 using MyErp.Data;
 using MyErp.Models;
 
@@ -16,7 +17,11 @@ namespace MyErp.Controllers
 
         public IActionResult Index()
         {
-            var people = _context.Peoples.ToList();
+            //var people = _context.Peoples.ToList();
+
+            var people = _context.Peoples
+                .Include(x => x.PeopleProjects)
+                .ThenInclude(x => x.Project);
             return View(people);
         }
         [HttpGet]

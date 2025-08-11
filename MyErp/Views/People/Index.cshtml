@@ -9,6 +9,8 @@
     <tr>
         <th>Name</th>
         <th>Description</th>
+        <th>Count</th>
+        <th>Project</th>
         <th>Action</th>
     </tr>
     @foreach(var people in Model)
@@ -16,6 +18,13 @@
         <tr>
             <td>@people.Name</td>
             <td>@people.Description</td>
+            <td>@people.PeopleProjects.Count()</td>
+            <td>
+                @foreach (var project in @people.PeopleProjects)
+                {
+                    @project.Project.Name
+                }
+            </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@people.Id">Edit</a>
                 <a asp-action="Details">Details</a>
