@@ -100,7 +100,8 @@ namespace MyErp.Controllers
                 return View();
             }
             var existingRoles = await _userManager.GetRolesAsync(user);
-            var selectedRoles = vm.Roles.Where(r=>r.IsSelected).Select(r=>r.RoleName).ToList();
+            var selectedRoles = vm.Roles.Where(r=>r.IsSelected)
+                .Select(r=>r.RoleName).ToList();
             
             //remove unselected roles
             var rolesToRemove = existingRoles.Except(selectedRoles);
