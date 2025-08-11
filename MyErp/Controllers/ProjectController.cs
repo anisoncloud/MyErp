@@ -32,6 +32,7 @@ namespace MyErp.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Create(Project project)
         {
+            ModelState.Remove("PeopleProjects");
             if (ModelState.IsValid) 
             { 
                 _context.Projects.Add(project);
