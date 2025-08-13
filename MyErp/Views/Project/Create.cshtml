@@ -13,5 +13,46 @@
         <input asp-for="Name" class="form-control" />
         <span asp-validation-for="Name" class="text-danger"></span>
     </div>
+    <div class="mb-3">
+        <label asp-for="DemoStartDate" class="form-label"></label>
+        <input type="date" asp-for="DemoStartDate" class="form-control" />
+        <span asp-validation-for="DemoStartDate" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+        <label asp-for="WorkOrderDate" class="form-label"></label>
+        <input type="date" asp-for="WorkOrderDate" class="form-control" />
+        <span asp-validation-for="WorkOrderDate" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+        <label asp-for="ProjectDays" class="form-label"></label>
+        <input asp-for="ProjectDays" class="form-control" />
+        <span asp-validation-for="ProjectDays" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+        <label asp-for="ProjectDeliveryDate" class="form-label"></label>
+        <input type="date" asp-for="ProjectDeliveryDate" class="form-control" />
+        <span asp-validation-for="ProjectDeliveryDate" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+        <label asp-for="ProjectValue" class="form-label"></label>
+        <input asp-for="ProjectValue" class="form-control" />
+        <span asp-validation-for="ProjectValue" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+        <label asp-for="Advanced" class="form-label"></label>
+        <input asp-for="Advanced" class="form-control" />
+        <span asp-validation-for="Advanced" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+        <label asp-for="ProjectDetails" class="form-label"></label>
+        <textarea asp-for="ProjectDetails" class="form-control" rows="3"></textarea>
+        <span asp-validation-for="ProjectDetails" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+        <label asp-for="Comments" class="form-label"></label>
+        <textarea asp-for="Comments" class="form-control" rows="5"></textarea>
+        <span asp-validation-for="Comments" class="text-danger"></span>
+    </div>
+
     <button class="btn btn-success w-50">Craate</button>
 </form>
