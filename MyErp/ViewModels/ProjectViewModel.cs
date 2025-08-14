@@ -18,5 +18,7 @@ namespace MyErp.ViewModels
         public string? Comments { get; set; }
         public List<int> SelectedPeopleIds {  get; set; }
         public List<SelectListItem> AllPeoples { get; set; }
+
+        
     }
 }

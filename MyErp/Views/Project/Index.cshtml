@@ -9,8 +9,14 @@
 <table class="table table-striped">
     <tr>
         <th>Project Name</th>
-        <th>Pepple Assigned</th>
-        <th>Pepple Assigned</th>
+        <th>Persons</th>
+        <th>Developer</th>
+        <th>Order Date</th>
+        <th>Value</th>
+        <th>Adv</th>
+        <th>Due</th>
+        <th>Days</th>
+        <th>Delivery</th>
         <th>Action</th>
     </tr>
     @foreach (var project in Model)
@@ -18,14 +24,20 @@
     <tr>
         <td>@project.Name</td>
         <td>@project.PeopleProjects.Count()</td>
-            <td>@foreach(var people in project.PeopleProjects)
-                {
-                    @people.People.Name;
-                }
-            </td>
-            <td>
-                <a asp-action="PeopleAssign" asp-route-id="@project.ID">Project Assign</a>
-            </td>   
+        <td>@foreach(var people in project.PeopleProjects)
+            {
+                @people.People.Name;
+            }
+        </td>
+        <td>@project.WorkOrderDate?.ToString("dd MMM yyyy")</td>
+        <td>@project.ProjectValue</td>
+        <td>@project.Advanced</td>
+        <td>@project.DuePayment</td>
+        <td>@project.ProjectDays</td>
+        <td>@project.ProjectDeliveryDate?.ToString("dd MMM yyyy")</td>
+        <td>
+            <a asp-action="PeopleAssign" asp-route-id="@project.ID">Project Assign</a>
+        </td>   
     </tr>
     }
 </table>

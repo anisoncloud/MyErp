@@ -30,7 +30,7 @@ namespace MyErp.Migrations
                 nullable: true);
 
             migrationBuilder.AddColumn<int>(
-                name: "ProjectDeays",
+                name: "ProjectDays",
                 table: "Projects",
                 type: "int",
                 nullable: true);
