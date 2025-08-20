@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.EntityFrameworkCore;
+using System.ComponentModel.DataAnnotations;
 
 namespace MyErp.Models
 {
@@ -10,7 +11,7 @@ namespace MyErp.Models
         public DateOnly? WorkOrderDate {get; set;}
         public int? ProjectDays { get; set;}        
         public DateOnly? ProjectDeliveryDate {get; set;}
-        public decimal? ProjectValue { get; set;} 
+        public decimal? ProjectValue { get; set;}
         public decimal? Advanced { get; set;} 
         public string? ProjectDetails {  get; set; }
         public string? Comments {  get; set; }

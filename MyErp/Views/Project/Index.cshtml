@@ -7,18 +7,21 @@
 <h1>Project</h1>
 <a asp-action="Create">Project Create</a>
 <table class="table table-striped">
-    <tr>
-        <th>Project Name</th>
-        <th>Persons</th>
-        <th>Developer</th>
-        <th>Order Date</th>
-        <th>Value</th>
-        <th>Adv</th>
-        <th>Due</th>
-        <th>Days</th>
-        <th>Delivery</th>
-        <th>Action</th>
-    </tr>
+    <thead>
+        <tr>
+            <th>Project Name</th>
+            <th>Persons</th>
+            <th>Developer</th>
+            <th>Order Date</th>
+            <th>Value</th>
+            <th>Adv</th>
+            <th>Due</th>
+            <th>Days</th>
+            <th>Delivery</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
     @foreach (var project in Model)
         {
     <tr>
@@ -40,4 +43,20 @@
         </td>   
     </tr>
     }
+    </tbody>
+    <tfoot>
+        <tr>
+            <th>Project Name</th>
+            <th>Persons</th>
+            <th>Developer</th>
+            <th>Order Date</th>
+            <th>@Model.Sum(p => p.ProjectValue)</th>
+            <th>Adv</th>
+            <th>Due</th>
+            <th>Days</th>
+            <th>Delivery</th>
+            <th>Action</th>            
+            
+        </tr>
+    </tfoot>
 </table>

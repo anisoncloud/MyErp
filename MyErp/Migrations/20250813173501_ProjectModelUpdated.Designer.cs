@@ -334,7 +334,7 @@ namespace MyErp.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("ProjectDeays")
+                    b.Property<int?>("ProjectDays")
                         .HasColumnType("int");
 
                     b.Property<DateOnly?>("ProjectDeliveryDate")
@@ -346,7 +346,7 @@ namespace MyErp.Migrations
                     b.Property<decimal?>("ProjectValue")
                         .HasColumnType("decimal(18,2)");
 
-                    b.Property<DateOnly?>("WorkOrederDate")
+                    b.Property<DateOnly?>("WorkOrderDate")
                         .HasColumnType("date");
 
                     b.HasKey("ID");
