@@ -22,6 +22,7 @@ namespace MyErp.Data
         public DbSet<Project> Projects { get; set; }
         public DbSet<PeopleProject> PeopleProjects { get; set; }
         public DbSet<CrmCompany> CrmCompanies { get; set; }
+        public DbSet<Lead> Leads { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
@@ -66,6 +67,7 @@ namespace MyErp.Data
                 .WithMany(p=>p.PeopleProjects)
                 .HasForeignKey(p=>p.ProjectId)
                 .OnDelete(DeleteBehavior.Cascade);
+            
         }
     }
 }
