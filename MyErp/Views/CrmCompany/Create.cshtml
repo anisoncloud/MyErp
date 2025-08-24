@@ -6,6 +6,7 @@
 }
 <h1>Company</h1>
 <form asp-action="Create">
+    @Html.AntiForgeryToken()
     <div class="text-danger" asp-validation-summary="ModelOnly"></div>
     <div class="md-3">
         <label class="form-label" asp-for="Name"></label>

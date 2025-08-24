@@ -8,6 +8,6 @@
         public string? Email {  get; set; }
         public string? Comment { get; set; }
         public int CrmCompanyId { get; set; }
-        public CrmCompany CrmCompany { get; set; }
+        public CrmCompany CrmCompanies { get; set; }
     }
 }
