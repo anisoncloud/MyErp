@@ -12,10 +12,13 @@
         </tr>
     </thead>
     <tbody>
+        @{
+            var serial = 1;
+        }
         @foreach(var user in Model)
         {
             <tr>
-                <th scope="row">@user.Id</th>
+                <th scope="row">@serial</th>
                 <td>@user.FullName</td>
                 <td>@user.Email</td>
                 <td></td>
@@ -42,6 +45,7 @@
                     
                 </td>
             </tr>
+            serial++;
         }
     </tbody>
 </table>

@@ -23,6 +23,8 @@ namespace MyErp.Data
         public DbSet<PeopleProject> PeopleProjects { get; set; }
         public DbSet<CrmCompany> CrmCompanies { get; set; }
         public DbSet<Lead> Leads { get; set; }
+        public DbSet<Company> Companies { get; set; }
+        public DbSet<Department> Departments { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {

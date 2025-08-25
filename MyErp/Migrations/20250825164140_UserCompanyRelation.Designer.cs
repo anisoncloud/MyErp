@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using MyErp.Data;
 
@@ -11,9 +12,11 @@ using MyErp.Data;
 namespace MyErp.Migrations
 {
     [DbContext(typeof(AppDbContex))]
-    partial class AppDbContexModelSnapshot : ModelSnapshot
+    [Migration("20250825164140_UserCompanyRelation")]
+    partial class UserCompanyRelation
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -202,26 +205,6 @@ namespace MyErp.Migrations
                     b.HasKey("ID");
 
                     b.ToTable("CrmCompanies");
-                });
-
-            modelBuilder.Entity("MyErp.Models.Department", b =>
-                {
-                    b.Property<int>("ID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"));
-
-                    b.Property<string>("Description")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("ID");
-
-                    b.ToTable("Departments");
                 });
 
             modelBuilder.Entity("MyErp.Models.Lead", b =>
@@ -498,9 +481,6 @@ namespace MyErp.Migrations
                         .IsConcurrencyToken()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("DepartmentID")
-                        .HasColumnType("int");
-
                     b.Property<string>("Email")
                         .HasMaxLength(256)
                         .HasColumnType("nvarchar(256)");
@@ -548,8 +528,6 @@ namespace MyErp.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("CompanyID");
-
-                    b.HasIndex("DepartmentID");
 
                     b.HasIndex("NormalizedEmail")
                         .HasDatabaseName("EmailIndex");
@@ -697,18 +675,9 @@ namespace MyErp.Migrations
                     b.HasOne("MyErp.Models.Company", null)
                         .WithMany("User")
                         .HasForeignKey("CompanyID");
-
-                    b.HasOne("MyErp.Models.Department", null)
-                        .WithMany("User")
-                        .HasForeignKey("DepartmentID");
                 });
 
             modelBuilder.Entity("MyErp.Models.Company", b =>
-                {
-                    b.Navigation("User");
-                });
-
-            modelBuilder.Entity("MyErp.Models.Department", b =>
                 {
                     b.Navigation("User");
                 });
