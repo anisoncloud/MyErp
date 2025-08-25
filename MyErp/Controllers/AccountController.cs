@@ -22,7 +22,7 @@ namespace MyErp.Controllers
         public async Task<IActionResult> Index()
         {
             var user = await _userManager.Users.ToListAsync();
-            return View(user);
+                return View(user);
         }
 
         public IActionResult Login()
@@ -86,7 +86,8 @@ namespace MyErp.Controllers
                         await _roleManager.CreateAsync(new IdentityRole("User"));
                     }
                     await _userManager.AddToRoleAsync(user, "User");
-                    await _signInManager.SignInAsync(user, isPersistent: true);
+                    //After register sign in to a this user
+                    //await _signInManager.SignInAsync(user, isPersistent: true);
                     return RedirectToAction("Index", "Home");
                 }
 
