@@ -12,8 +12,8 @@ using MyErp.Data;
 namespace MyErp.Migrations
 {
     [DbContext(typeof(AppDbContex))]
-    [Migration("20250825164527_relationDepartmentUser")]
-    partial class relationDepartmentUser
+    [Migration("20250826170138_CompanyUserRelation")]
+    partial class CompanyUserRelation
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -205,26 +205,6 @@ namespace MyErp.Migrations
                     b.HasKey("ID");
 
                     b.ToTable("CrmCompanies");
-                });
-
-            modelBuilder.Entity("MyErp.Models.Department", b =>
-                {
-                    b.Property<int>("ID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"));
-
-                    b.Property<string>("Description")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("ID");
-
-                    b.ToTable("Departments");
                 });
 
             modelBuilder.Entity("MyErp.Models.Lead", b =>
@@ -494,15 +474,12 @@ namespace MyErp.Migrations
                     b.Property<int>("AccessFailedCount")
                         .HasColumnType("int");
 
-                    b.Property<int?>("CompanyID")
+                    b.Property<int?>("CompanyId")
                         .HasColumnType("int");
 
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken()
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<int?>("DepartmentID")
-                        .HasColumnType("int");
 
                     b.Property<string>("Email")
                         .HasMaxLength(256)
@@ -550,9 +527,7 @@ namespace MyErp.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("CompanyID");
-
-                    b.HasIndex("DepartmentID");
+                    b.HasIndex("CompanyId");
 
                     b.HasIndex("NormalizedEmail")
                         .HasDatabaseName("EmailIndex");
@@ -697,23 +672,16 @@ namespace MyErp.Migrations
 
             modelBuilder.Entity("MyErp.Models.Users", b =>
                 {
-                    b.HasOne("MyErp.Models.Company", null)
-                        .WithMany("User")
-                        .HasForeignKey("CompanyID");
+                    b.HasOne("MyErp.Models.Company", "Company")
+                        .WithMany("Users")
+                        .HasForeignKey("CompanyId");
 
-                    b.HasOne("MyErp.Models.Department", null)
-                        .WithMany("User")
-                        .HasForeignKey("DepartmentID");
+                    b.Navigation("Company");
                 });
 
             modelBuilder.Entity("MyErp.Models.Company", b =>
                 {
-                    b.Navigation("User");
-                });
-
-            modelBuilder.Entity("MyErp.Models.Department", b =>
-                {
-                    b.Navigation("User");
+                    b.Navigation("Users");
                 });
 
             modelBuilder.Entity("MyErp.Models.MainCategory", b =>

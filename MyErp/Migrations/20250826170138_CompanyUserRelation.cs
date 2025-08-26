@@ -5,27 +5,27 @@
 namespace MyErp.Migrations
 {
     /// <inheritdoc />
-    public partial class relationDepartmentUser : Migration
+    public partial class CompanyUserRelation : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.AddColumn<int>(
-                name: "DepartmentID",
+                name: "CompanyId",
                 table: "AspNetUsers",
                 type: "int",
                 nullable: true);
 
             migrationBuilder.CreateIndex(
-                name: "IX_AspNetUsers_DepartmentID",
+                name: "IX_AspNetUsers_CompanyId",
                 table: "AspNetUsers",
-                column: "DepartmentID");
+                column: "CompanyId");
 
             migrationBuilder.AddForeignKey(
-                name: "FK_AspNetUsers_Departments_DepartmentID",
+                name: "FK_AspNetUsers_Companies_CompanyId",
                 table: "AspNetUsers",
-                column: "DepartmentID",
-                principalTable: "Departments",
+                column: "CompanyId",
+                principalTable: "Companies",
                 principalColumn: "ID");
         }
 
@@ -33,15 +33,15 @@ namespace MyErp.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropForeignKey(
-                name: "FK_AspNetUsers_Departments_DepartmentID",
+                name: "FK_AspNetUsers_Companies_CompanyId",
                 table: "AspNetUsers");
 
             migrationBuilder.DropIndex(
-                name: "IX_AspNetUsers_DepartmentID",
+                name: "IX_AspNetUsers_CompanyId",
                 table: "AspNetUsers");
 
             migrationBuilder.DropColumn(
-                name: "DepartmentID",
+                name: "CompanyId",
                 table: "AspNetUsers");
         }
     }

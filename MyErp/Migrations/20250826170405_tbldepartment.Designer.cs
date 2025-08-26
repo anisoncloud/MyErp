@@ -12,8 +12,8 @@ using MyErp.Data;
 namespace MyErp.Migrations
 {
     [DbContext(typeof(AppDbContex))]
-    [Migration("20250825163852_tableCompany")]
-    partial class tableCompany
+    [Migration("20250826170405_tbldepartment")]
+    partial class tbldepartment
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -205,6 +205,26 @@ namespace MyErp.Migrations
                     b.HasKey("ID");
 
                     b.ToTable("CrmCompanies");
+                });
+
+            modelBuilder.Entity("MyErp.Models.Department", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"));
+
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("ID");
+
+                    b.ToTable("Departments");
                 });
 
             modelBuilder.Entity("MyErp.Models.Lead", b =>
@@ -474,6 +494,9 @@ namespace MyErp.Migrations
                     b.Property<int>("AccessFailedCount")
                         .HasColumnType("int");
 
+                    b.Property<int?>("CompanyId")
+                        .HasColumnType("int");
+
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken()
                         .HasColumnType("nvarchar(max)");
@@ -523,6 +546,8 @@ namespace MyErp.Migrations
                         .HasColumnType("nvarchar(256)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("CompanyId");
 
                     b.HasIndex("NormalizedEmail")
                         .HasDatabaseName("EmailIndex");
@@ -663,6 +688,20 @@ namespace MyErp.Migrations
                         .IsRequired();
 
                     b.Navigation("User");
+                });
+
+            modelBuilder.Entity("MyErp.Models.Users", b =>
+                {
+                    b.HasOne("MyErp.Models.Company", "Company")
+                        .WithMany("Users")
+                        .HasForeignKey("CompanyId");
+
+                    b.Navigation("Company");
+                });
+
+            modelBuilder.Entity("MyErp.Models.Company", b =>
+                {
+                    b.Navigation("Users");
                 });
 
             modelBuilder.Entity("MyErp.Models.MainCategory", b =>

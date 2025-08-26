@@ -5,13 +5,13 @@
 namespace MyErp.Migrations
 {
     /// <inheritdoc />
-    public partial class tableDepartment : Migration
+    public partial class TblCompany : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "Departments",
+                name: "Companies",
                 columns: table => new
                 {
                     ID = table.Column<int>(type: "int", nullable: false)
@@ -21,7 +21,7 @@ namespace MyErp.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Departments", x => x.ID);
+                    table.PrimaryKey("PK_Companies", x => x.ID);
                 });
         }
 
@@ -29,7 +29,7 @@ namespace MyErp.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Departments");
+                name: "Companies");
         }
     }
 }

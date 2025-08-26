@@ -51,7 +51,7 @@ namespace MyErp.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,Name,Description")] Company company)
         {
-            ModelState.Remove("User");
+            ModelState.Remove("Users");
             if (ModelState.IsValid)
             {
                 await _context.Companies.AddAsync(company);
