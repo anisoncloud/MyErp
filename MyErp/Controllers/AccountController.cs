@@ -3,21 +3,26 @@ using MyErp.ViewModels;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using MyErp.Data;
 
 namespace MyErp.Controllers
 {
     public class AccountController : Controller
     {
+        private readonly AppDbContex _context;
         private readonly SignInManager<Users> _signInManager;
         private readonly UserManager<Users> _userManager;
         private readonly RoleManager<IdentityRole> _roleManager;
 
-        public AccountController(SignInManager<Users> signInManager, UserManager<Users> userManager, RoleManager<IdentityRole> roleManager)
+        public AccountController(SignInManager<Users> signInManager, UserManager<Users> userManager, RoleManager<IdentityRole> roleManager, AppDbContex context)
         {
             _signInManager = signInManager;
             _userManager = userManager;
             _roleManager = roleManager;
+            _context = context;
         }
+       
 
         public async Task<IActionResult> Index()
         {
@@ -59,11 +64,27 @@ namespace MyErp.Controllers
         }
         public IActionResult Register()
         {
+            var vm = new RegisterViewModel
+            {
+                Departments = _context.Departments
+                .Select(x => new SelectListItem
+                {
+                    Value = x.ID.ToString(),
+                    Text = x.Name
+                }).ToList(),
+                Companies = _context.Companies
+                .Select(y => new SelectListItem
+                {
+                    Value = y.ID.ToString(),
+                    Text = y.Name
+                }).ToList()
+
+            };
             if (_signInManager.IsSignedIn(User))
             {
                 return RedirectToAction("Index", "Home");
             }
-            return View();
+            return View(vm);
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -76,6 +97,9 @@ namespace MyErp.Controllers
                     FullName = model.FullName,
                     NormalizedUserName = model.Email.ToUpper(),
                     NormalizedEmail = model.Email.ToUpper(),
+                    DepartmentID = model.DepartmentId,
+                    CompanyID = model.CompanyId,
+                    
                 };
                 var result = await _userManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)

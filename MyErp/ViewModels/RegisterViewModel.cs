@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.AspNetCore.Mvc.Rendering;
+using System.ComponentModel.DataAnnotations;
 
 namespace MyErp.ViewModels
 {
@@ -18,5 +19,9 @@ namespace MyErp.ViewModels
         [DataType(DataType.Password)]
         [Display(Name = "Confirm Password")]
         public string ConfirmPassword { get; set; }
+        public int CompanyId {  get; set; }
+        public List<SelectListItem> Companies { get; set; }
+        public List<SelectListItem> Departments {  get; set; }
+        public int DepartmentId {  get; set; }
     }
 }

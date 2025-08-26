@@ -13,6 +13,20 @@
                 @Html.AntiForgeryToken()
                 <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
                 <div class="mb-3">
+                    <label asp-for="CompanyId" class="form-label"></label>
+                    <select asp-for="CompanyId" class="form-control" asp-items="Model.Companies">
+                        <option value="">---Select Company---</option>
+                    </select>
+                    <span asp-validation-for="CompanyId" class="text-danger"></span>
+                </div>
+                <div class="mb-3">
+                    <label asp-for="DepartmentId" class="form-label"></label>
+                    <select asp-for="DepartmentId" class="form-control" asp-items="Model.Departments">
+                        <option value="">---Select Department---</option>
+                    </select>
+                    <span asp-validation-for="CompanyId" class="text-danger"></span>
+                </div>
+                <div class="mb-3">
                     <label asp-for="FullName" class="form-label"></label>
                     <input asp-for="FullName" class="form-control" />
                     <span asp-validation-for="FullName" class="text-danger"></span>
