@@ -66,7 +66,7 @@ namespace MyErp.Controllers
         {
             var vm = new RegisterViewModel
             {
-                /*Departments = _context.Departments
+                Departments = _context.Departments
                 .Select(x => new SelectListItem
                 {
                     Value = x.ID.ToString(),
@@ -77,7 +77,7 @@ namespace MyErp.Controllers
                 {
                     Value = y.ID.ToString(),
                     Text = y.Name
-                }).ToList()*/
+                }).ToList()
 
             };
             if (_signInManager.IsSignedIn(User))
@@ -97,8 +97,8 @@ namespace MyErp.Controllers
                     FullName = model.FullName,
                     NormalizedUserName = model.Email.ToUpper(),
                     NormalizedEmail = model.Email.ToUpper(),
-                    //DepartmentId = model.DepartmentId,
-                    //CompanyId = model.CompanyId,
+                    DepartmentId = model.DepartmentId,
+                    CompanyId = model.CompanyId,
                     
                 };
                 var result = await _userManager.CreateAsync(user, model.Password);

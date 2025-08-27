@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using MyErp.Interfaces;
 using MyErp.Models;
 using System.Reflection.Emit;
 
@@ -7,8 +8,10 @@ namespace MyErp.Data
 {
     public class AppDbContex : IdentityDbContext<Users>
     {
-        public AppDbContex(DbContextOptions<AppDbContex> options) : base(options)
+        private readonly ICurrentUserService _currentUserService;
+        public AppDbContex(DbContextOptions<AppDbContex> options, ICurrentUserService currentUserService) : base(options)
         {
+            _currentUserService = currentUserService;
         }
 
         public DbSet<UserDetails> UserDetails { get; set; }
@@ -25,6 +28,7 @@ namespace MyErp.Data
         public DbSet<Lead> Leads { get; set; }
         public DbSet<Company> Companies { get; set; }
         public DbSet<Department> Departments { get; set; }
+        public DbSet<Designation> Designations { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
@@ -68,8 +72,45 @@ namespace MyErp.Data
                 .HasOne(p => p.Project)
                 .WithMany(p=>p.PeopleProjects)
                 .HasForeignKey(p=>p.ProjectId)
-                .OnDelete(DeleteBehavior.Cascade);
-            
+                .OnDelete(DeleteBehavior.Cascade);            
+        }
+
+
+        //Audit Save Update
+        public override int SaveChanges()
+        {
+            UpdateAuditFields();
+            return base.SaveChanges();
+        }
+
+        public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
+        {
+            UpdateAuditFields();
+            return await base.SaveChangesAsync(cancellationToken);
+        }
+
+        private void UpdateAuditFields()
+        {
+            var username = _currentUserService.GetCurrentUsername();
+
+            foreach (var entry in ChangeTracker.Entries<BaseEntity>())
+            {
+                if (entry.State == EntityState.Added)
+                {
+                    entry.Entity.CreatedAt = DateTime.UtcNow;
+                    entry.Entity.UpdatedAt = DateTime.UtcNow;
+                    entry.Entity.CreatedBy = username;
+                    entry.Entity.UpdatedBy = username;
+                }
+                else if (entry.State == EntityState.Modified)
+                {
+                    entry.Property(x => x.CreatedAt).IsModified = false;
+                    entry.Property(x => x.CreatedBy).IsModified = false;
+
+                    entry.Entity.UpdatedAt = DateTime.UtcNow;
+                    entry.Entity.UpdatedBy = username;
+                }
+            }
         }
     }
 }
