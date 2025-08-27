@@ -2,7 +2,7 @@
 
 namespace MyErp.Models
 {
-    public class Users : IdentityUser
+    public class Users : IdentityUser 
     {
         public string FullName { get; set; }
         public UserDetails? UserDetails { get; set; }
@@ -12,5 +12,9 @@ namespace MyErp.Models
         public Department Department { get; set; }
         public int? DesignationId { get; set; }
         public Designation Designation { get; set; }
+        public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
+        public DateTime UpdatedAt { get; set; } = DateTime.UtcNow;
+        public string? CreatedBy { get; set; }
+        public string? UpdatedBy { get; set; }
     }
 }

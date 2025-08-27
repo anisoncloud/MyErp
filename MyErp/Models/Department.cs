@@ -2,7 +2,7 @@
 
 namespace MyErp.Models
 {
-    public class Department
+    public class Department: BaseEntity
     {
         public int ID { get; set; }
         [Display(Name = "Department")]

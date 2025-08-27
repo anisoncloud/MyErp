@@ -89,8 +89,8 @@ namespace MyErp.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Register(RegisterViewModel model) {
-            if (ModelState.IsValid)
-            {
+            //if (ModelState.IsValid)
+            //{
                 var user = new Users { 
                     UserName = model.Email, 
                     Email = model.Email, 
@@ -122,7 +122,7 @@ namespace MyErp.Controllers
                 // Logic to register user
                 // If successful, redirect to a secure area or login page
                 //return RedirectToAction("Index", "Home");
-            }
+            //}
             return View(model);
         }
 
