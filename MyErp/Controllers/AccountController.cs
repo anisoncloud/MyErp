@@ -26,7 +26,11 @@ namespace MyErp.Controllers
 
         public async Task<IActionResult> Index()
         {
-            var user = await _userManager.Users.ToListAsync();
+            var user = await _userManager.Users
+                .Include(x=>x.Company)
+                .Include(y=>y.Department)
+                .Include(z=>z.Designation)
+                .ToListAsync();
                 return View(user);
         }
 
@@ -119,13 +123,60 @@ namespace MyErp.Controllers
                 {
                     ModelState.AddModelError(string.Empty, error.Description);
                 }
-                // Logic to register user
-                // If successful, redirect to a secure area or login page
-                //return RedirectToAction("Index", "Home");
+            // Logic to register user
+            // If successful, redirect to a secure area or login page
+            //return RedirectToAction("Index", "Home");
             //}
-            return View(model);
+            var vm = new RegisterViewModel
+            {
+                Departments = _context.Departments
+                .Select(x => new SelectListItem
+                {
+                    Value = x.ID.ToString(),
+                    Text = x.Name
+                }).ToList(),
+                Companies = _context.Companies
+                .Select(y => new SelectListItem
+                {
+                    Value = y.ID.ToString(),
+                    Text = y.Name
+                }).ToList()
+
+            };
+            return View(vm);
         }
 
+
+        [HttpGet]
+        public async Task<IActionResult> Edit(string id)
+        {
+            var user =_userManager.Users.Where(x => x.Id == id)
+                .Include(x => x.Company)
+                .Include(y => y.Designation)
+                .Include(z => z.Department)
+                .Select(i => new RegisterViewModel
+                {
+                    FullName = i.FullName,
+                    Email = i.Email,
+                    CompanyId = (int)i.CompanyId,
+                    DepartmentId = (int)i.DepartmentId
+                }).FirstOrDefault();
+            user.Companies = _context.Companies
+                .Select(x => new SelectListItem
+                {
+                    Value = x.ID.ToString(),
+                    Text = x.Name
+                }).ToList();
+            user.Departments = _context.Departments
+                .Select(y => new SelectListItem
+                {
+                    Value = y.ID.ToString(),
+                    Text = y.Name
+                }).ToList();
+            
+            
+            return View(user);
+        }
 
         [HttpPost]
         public async Task<IActionResult> Logout()

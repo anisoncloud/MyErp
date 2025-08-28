@@ -7,6 +7,8 @@
             <th scope="col">#</th>
             <th scope="col">Name</th>
             <th scope="col">Email</th>
+            <th scope="col">Company</th>
+            <th scope="col">Designation</th>
             <th scope="col">Role</th>
             <th scope="col">Action</th>
         </tr>
@@ -21,28 +23,26 @@
                 <th scope="row">@serial</th>
                 <td>@user.FullName</td>
                 <td>@user.Email</td>
+                <td>@user.Company.Name</td>
+                <td>@user.Department.Name</td>
                 <td></td>
-                <td>
-                    
-                        <ul class="navbar-nav ms-auto align-items-center">
-                            <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                Actions </a>
-                                <ul class="dropdown-menu dropdown-menu-end">
-                                    <li><a asp-action="Edit" asp-controller="AccountDetails" asp-route-userId="@user.Id" class="dropdown-item">Edit</a></li>
-                                    <li><a asp-action="AssignRole" asp-controller="Role" asp-route-id="@user.Id" class="dropdown-item">Assign Role</a></li>
-                                    <li>
-                                        <form asp-action="DeleteUser" asp-route-id="@user.Id" method="post" class="d-inline-block">
-                                            <button type="submit" class="btn btn-danger">Delete</button>
-                                        </form>
-                                    </li>
-                                </ul>
-                            </li>
-                        </ul>
-                   
-                    
-                    
-                    
+                <td>                    
+                    <ul class="navbar-nav ms-auto align-items-center">
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Actions </a>
+                            <ul class="dropdown-menu dropdown-menu-end">
+                                <li><a asp-action="Edit" asp-controller="Account" asp-route-id="@user.Id" class="dropdown-item">Update Profile</a></li>
+                                <li><a asp-action="AssignRole" asp-controller="Role" asp-route-id="@user.Id" class="dropdown-item">Assign Role</a></li>
+                                <li><a asp-action="VerifyEmail" asp-controller="Account" asp-route-id="@user.Id" class="dropdown-item">Update Password</a></li>
+                                <li>
+                                    <form asp-action="DeleteUser" asp-route-id="@user.Id" method="post" class="d-inline-block">
+                                        <button type="submit" class="btn btn-danger">Delete</button>
+                                    </form>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
                 </td>
             </tr>
             serial++;
