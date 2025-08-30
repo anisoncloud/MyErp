@@ -81,6 +81,12 @@ namespace MyErp.Controllers
                 {
                     Value = y.ID.ToString(),
                     Text = y.Name
+                }).ToList(),
+                Designations = _context.Designations
+                .Select(y => new SelectListItem
+                {
+                    Value = y.DesignationID.ToString(),
+                    Text = y.Name
                 }).ToList()
 
             };
@@ -103,6 +109,7 @@ namespace MyErp.Controllers
                     NormalizedEmail = model.Email.ToUpper(),
                     DepartmentId = model.DepartmentId,
                     CompanyId = model.CompanyId,
+                    DesignationId = model.DesignationId,
                     
                 };
                 var result = await _userManager.CreateAsync(user, model.Password);

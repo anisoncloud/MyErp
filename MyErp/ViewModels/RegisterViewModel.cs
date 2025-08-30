@@ -22,6 +22,8 @@ namespace MyErp.ViewModels
         public int CompanyId {  get; set; }
         public List<SelectListItem> Companies { get; set; }
         public List<SelectListItem> Departments {  get; set; }
+        public List<SelectListItem> Designations {  get; set; }
+        public int DesignationId { get; set; }
         public int DepartmentId {  get; set; }
     }
 }
