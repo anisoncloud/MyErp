@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using MyErp.Data;
 
@@ -11,9 +12,11 @@ using MyErp.Data;
 namespace MyErp.Migrations
 {
     [DbContext(typeof(AppDbContex))]
-    partial class AppDbContexModelSnapshot : ModelSnapshot
+    [Migration("20250904171044_tblLeaveType")]
+    partial class tblLeaveType
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -314,32 +317,6 @@ namespace MyErp.Migrations
                     b.HasIndex("CrmCompanyId");
 
                     b.ToTable("Leads");
-                });
-
-            modelBuilder.Entity("MyErp.Models.LeaveEntitlement", b =>
-                {
-                    b.Property<int>("ID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"));
-
-                    b.Property<int>("DaysPerYer")
-                        .HasColumnType("int");
-
-                    b.Property<int>("EmployeeTypeId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("LeaveTypeId")
-                        .HasColumnType("int");
-
-                    b.HasKey("ID");
-
-                    b.HasIndex("EmployeeTypeId");
-
-                    b.HasIndex("LeaveTypeId");
-
-                    b.ToTable("LeaveEntitlements");
                 });
 
             modelBuilder.Entity("MyErp.Models.LeaveType", b =>
@@ -751,25 +728,6 @@ namespace MyErp.Migrations
                     b.Navigation("CrmCompanies");
                 });
 
-            modelBuilder.Entity("MyErp.Models.LeaveEntitlement", b =>
-                {
-                    b.HasOne("MyErp.Models.EmployeeType", "EmployeeType")
-                        .WithMany("Entitlements")
-                        .HasForeignKey("EmployeeTypeId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("MyErp.Models.LeaveType", "LeaveType")
-                        .WithMany("Entitlements")
-                        .HasForeignKey("LeaveTypeId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("EmployeeType");
-
-                    b.Navigation("LeaveType");
-                });
-
             modelBuilder.Entity("MyErp.Models.PeopleProject", b =>
                 {
                     b.HasOne("MyErp.Models.People", "People")
@@ -872,16 +830,6 @@ namespace MyErp.Migrations
             modelBuilder.Entity("MyErp.Models.Designation", b =>
                 {
                     b.Navigation("Users");
-                });
-
-            modelBuilder.Entity("MyErp.Models.EmployeeType", b =>
-                {
-                    b.Navigation("Entitlements");
-                });
-
-            modelBuilder.Entity("MyErp.Models.LeaveType", b =>
-                {
-                    b.Navigation("Entitlements");
                 });
 
             modelBuilder.Entity("MyErp.Models.MainCategory", b =>

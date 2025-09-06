@@ -16,5 +16,9 @@ namespace MyErp.Models
         public DateTime UpdatedAt { get; set; } = DateTime.UtcNow;
         public string? CreatedBy { get; set; }
         public string? UpdatedBy { get; set; }
+        public int? EmployeeTypeId { get; set; }
+        public EmployeeType? EmployeeType { get; set; }
+        public string? ManagerId {  get; set; }
+        public Users? Manager { get; set; }
     }
 }
