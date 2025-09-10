@@ -20,5 +20,6 @@ namespace MyErp.Models
         public EmployeeType? EmployeeType { get; set; }
         public string? ManagerId {  get; set; }
         public Users? Manager { get; set; }
+        public LeaveAllocation? LeaveAllocation { get; set; }
     }
 }
