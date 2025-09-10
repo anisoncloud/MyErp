@@ -32,6 +32,7 @@ namespace MyErp.Data
         public DbSet<EmployeeType> EmployeeTypes {  get; set; }
         public DbSet<LeaveType> LeaveTypes { get; set; }
         public DbSet<LeaveEntitlement> LeaveEntitlements { get; set; }
+        public DbSet<LeaveAllocation> LeaveAllocations { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
