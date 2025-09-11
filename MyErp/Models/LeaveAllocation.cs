@@ -16,6 +16,5 @@ namespace MyErp.Models
         public int? Paternity {  get; set; }
         public int? Pilgrimage {  get; set; }
         public int? Compensation {  get; set; }
-        public int? Year {  get; set; }
     }
 }

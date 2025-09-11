@@ -1,0 +1,46 @@
+﻿@model MyErp.Models.LeaveAllocation
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+<h4>Set Leave Allocation for: </h4>
+<form asp-action="Create" method="post">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    @Html.AntiForgeryToken()   
+
+    
+    <div class="mb-3">
+        <label asp-for="Sick" class="control-label"></label>
+        <input asp-for="Sick" class="form-control" />
+        <span asp-validation-for="Sick" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+        <label asp-for="Casual" class="control-label"></label>
+        <input asp-for="Casual" class="form-control" />
+        <span asp-validation-for="Casual" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+        <label asp-for="Casual" class="control-label"></label>
+        <input asp-for="Casual" class="form-control" />
+        <span asp-validation-for="Casual" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+        <label asp-for="Casual" class="control-label"></label>
+        <input asp-for="Casual" class="form-control" />
+        <span asp-validation-for="Casual" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+        <label asp-for="Casual" class="control-label"></label>
+        <input asp-for="Casual" class="form-control" />
+        <span asp-validation-for="Casual" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+        <label asp-for="Casual" class="control-label"></label>
+        <input asp-for="Casual" class="form-control" />
+        <span asp-validation-for="Casual" class="text-danger"></span>
+    </div>
+
+    
+    <button type="submit" value="Create" class="btn btn-primary w-50">Create</button>
+</form>
