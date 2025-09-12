@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using MyErp.Data;
 using MyErp.Models;
 
@@ -7,10 +9,16 @@ namespace MyErp.Controllers
     public class LeaveAllocationController : Controller
     {
         private readonly AppDbContex _context;
+        private readonly SignInManager<Users> _signInManager;
+        private readonly UserManager<Users> _userManager;
+        private readonly RoleManager<IdentityRole> _roleManager;
 
-        public LeaveAllocationController(AppDbContex context)
+        public LeaveAllocationController(SignInManager<Users> signInManager, UserManager<Users> userManager, RoleManager<IdentityRole> roleManager, AppDbContex context)
         {
-            _context = context;
+            _signInManager = signInManager;
+            _userManager = userManager;
+            _roleManager = roleManager;
+            _context = context; ;
         }
 
         public IActionResult Index()
@@ -18,9 +26,31 @@ namespace MyErp.Controllers
             return View();
         }
         [HttpGet]
-        public IActionResult Create()
+        public IActionResult Create(string id)
         {
-            return View();
+            /*var user = _userManager.Users
+                .Where(u => u.Id == id)
+                .Include(u=>u.LeaveAllocation)
+                .ToList();*/
+            var user = _context.LeaveAllocations
+                .Include(x=>x.Users)
+                .FirstOrDefault(x=>x.EmpId==id);
+            if (user == null)
+            {
+                return NotFound();
+            }
+            var leaveAllocation = new LeaveAllocation
+            {
+                Sick = user.Sick,
+                Casual = user.Casual,
+                Earned = user.Earned,
+                Maternity = user.Maternity,
+                Paternity = user.Paternity,
+                Pilgrimage = user.Pilgrimage,
+                Compensation = user.Compensation,
+
+            };
+            return View(user);
         }
         [HttpPost]
         [ValidateAntiForgeryToken]

@@ -33,6 +33,7 @@
                             Actions </a>
                             <ul class="dropdown-menu dropdown-menu-end">
                                 <li><a asp-action="Edit" asp-controller="Account" asp-route-id="@user.Id" class="dropdown-item">Update Profile</a></li>
+                                <li><a asp-action="Edit" asp-controller="AccountDetails" asp-route-id="@user.Id" class="dropdown-item">User Details</a></li>
                                 <li><a asp-action="Create" asp-controller="LeaveAllocation" asp-route-id="@user.Id" class="dropdown-item">Leave Allocation</a></li>
                                 <li><a asp-action="AssignRole" asp-controller="Role" asp-route-id="@user.Id" class="dropdown-item">Assign Role</a></li>
                                 <li><a asp-action="VerifyEmail" asp-controller="Account" asp-route-id="@user.Id" class="dropdown-item">Update Password</a></li>

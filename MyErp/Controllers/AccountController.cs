@@ -109,8 +109,7 @@ namespace MyErp.Controllers
                     NormalizedEmail = model.Email.ToUpper(),
                     DepartmentId = model.DepartmentId,
                     CompanyId = model.CompanyId,
-                    DesignationId = model.DesignationId,
-                    
+                    DesignationId = model.DesignationId
                 };
                 var result = await _userManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
@@ -121,6 +120,17 @@ namespace MyErp.Controllers
                         await _roleManager.CreateAsync(new IdentityRole("User"));
                     }
                     await _userManager.AddToRoleAsync(user, "User");
+                    var userDetails = new UserDetails
+                    {
+                        UserId = user.Id,
+                    };
+                    var leaveAllocaton = new LeaveAllocation
+                    {
+                        EmpId = user.Id,
+                    };
+                    _context.UserDetails.Add(userDetails);
+                    _context.LeaveAllocations.Add(leaveAllocaton);
+                    _context.SaveChanges();
                     //After register sign in to a this user
                     //await _signInManager.SignInAsync(user, isPersistent: true);
                     return RedirectToAction("Index", "Home");
