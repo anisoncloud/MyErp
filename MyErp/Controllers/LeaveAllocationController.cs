@@ -23,6 +23,7 @@ namespace MyErp.Controllers
 
         public IActionResult Index()
         {
+
             return View();
         }
         [HttpGet]
@@ -34,7 +35,7 @@ namespace MyErp.Controllers
                 .ToList();*/
             var user = _context.LeaveAllocations
                 .Include(x=>x.Users)
-                .FirstOrDefault(x=>x.EmpId==id);
+                .SingleOrDefault(x=>x.EmpId==id);
             if (user == null)
             {
                 return NotFound();
@@ -54,9 +55,22 @@ namespace MyErp.Controllers
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Create(LeaveAllocation model)
+        public IActionResult Create(LeaveAllocation model, string id)
         {
-            return View();
+            var user = _context.LeaveAllocations.SingleOrDefault(x => x.EmpId == id);
+            if (user == null)
+            {
+                return NotFound();
+            }
+            user.Sick = model.Sick;
+            user.Casual = model.Casual;
+            user.Earned = model.Earned;
+            user.Maternity = model.Maternity;
+            user.Paternity = model.Paternity;
+            user.Compensation = model.Compensation;
+            _context.LeaveAllocations.Update(user);
+            _context.SaveChanges();
+            return View(user);
         }
     }
 }

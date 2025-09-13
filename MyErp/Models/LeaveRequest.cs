@@ -1,11 +1,13 @@
-﻿using System.Globalization;
+﻿using System.ComponentModel.DataAnnotations.Schema;
+using System.Globalization;
 
 namespace MyErp.Models
 {
     public class LeaveRequest: BaseEntity
     {
         public int ID   { get; set; }
-        public int EmployeeId { get; set; }
+        public int EmpId { get; set; }
+        [ForeignKey("EmpId")]
         public Users? Users { get; set; }
         public int LeaveTypeId {  get; set; }
         public LeaveType? LeaveType { get; set; }
