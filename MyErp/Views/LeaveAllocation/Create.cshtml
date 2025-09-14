@@ -3,9 +3,7 @@
 <h4>Set Leave Allocation for: @Model.Users.FullName </h4>
 <form asp-action="Create" method="post">
     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-    @Html.AntiForgeryToken()   
-
-    
+    @Html.AntiForgeryToken()
     <div class="mb-3">
         <label asp-for="Sick" class="control-label"></label>
         <input asp-for="Sick" class="form-control" />

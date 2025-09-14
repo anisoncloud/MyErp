@@ -21,5 +21,6 @@ namespace MyErp.Models
         public string? ManagerId {  get; set; }
         public Users? Manager { get; set; }
         public LeaveAllocation? LeaveAllocation { get; set; }
+        public ICollection<LeaveRequest> LeaveRequests { get; set; }
     }
 }
