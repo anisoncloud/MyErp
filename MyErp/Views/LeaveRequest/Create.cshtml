@@ -4,7 +4,7 @@
 @{
 }
 
-@model MyErp.Models.LeaveRequest
+@model MyErp.ViewModels.LeaveRequestViewModel
 
 <h2>Create Leave Request</h2>
 
@@ -19,6 +19,7 @@
     <div class="mb-3">
         <label asp-for="LeaveType"></label>
         <select asp-for="LeaveType" class="form-control">
+            <option value="">---Select Leave---</option>
             <option value="Sick">Sick Leave</option>
             <option value="Casual">Casual Leave</option>
             <option value="Earned">Earned Leave</option>

@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using MyErp.Data;
 using MyErp.Models;
+using MyErp.ViewModels;
 
 namespace MyErp.Controllers
 {
@@ -25,14 +26,8 @@ namespace MyErp.Controllers
         }
 
         public IActionResult Create()
-        {
-            string userId = _userManager.GetUserId(User);
-            var user = _userManager.GetUserAsync(User);
-            var leaveRequest = new LeaveRequest
-            {
-                EmpId = userId,
-            };
-            return View(user);
+        {           
+            return View();
         }
     }
 }
