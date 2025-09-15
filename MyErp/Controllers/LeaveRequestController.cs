@@ -22,12 +22,40 @@ namespace MyErp.Controllers
         }
         public IActionResult Index()
         {
-            return View();
+            var leaveRequest = _context.LeaveRequests.Where(x => x.Stauts == "Pending").ToList();
+            return View(leaveRequest);
         }
 
+        [HttpGet]
         public IActionResult Create()
         {           
             return View();
         }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Create(LeaveRequestViewModel vm)
+        {
+            var user = await _userManager.GetUserAsync(User);
+            if (user == null)
+            {
+                return RedirectToAction("LogIn", "Accounts");
+            }
+            var leaveRequest = new LeaveRequest
+            {
+                EmpId = user.Id,
+                StartDate = vm.StartDate,
+                EndDate = vm.EndDate,
+                Days = vm.Days,
+                Comment = vm.Comment,
+                LeaveType = vm.LeaveType,
+                ManagerEmail = vm.ManagerEmail,
+                ManagerId = "ce56dffa-15e9-477c-9c40-d0b1f897d742",
+            };
+            _context.LeaveRequests.Add(leaveRequest);
+            _context.SaveChanges();
+            return RedirectToAction("Index");
+        }
+
     }
 }

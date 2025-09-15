@@ -1,0 +1,70 @@
+﻿@model IEnumerable<MyErp.Models.LeaveRequest>
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+@if (TempData["Success"] != null)
+{
+    <div class="alert alert-success">@TempData["Success"]</div>
+}
+@if (TempData["Error"] != null)
+{
+    <div class="alert alert-danger">@TempData["Error"]</div>
+}
+<form asp-action="BulkAction" method="post">
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col"><input type="checkbox" id="selectAll" checked /> <!-- Select All --></th>
+            <th scope="col">Name</th>
+            <th scope="col">Department</th>
+            <th scope="col">From Date</th>
+            <th scope="col">To Date</th>
+            <th scope="col">Days</th>
+            <th scope="col">Type</th>
+            <th scope="col">Reason</th>
+            <th scope="col">Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        @{
+            var serial = 1;
+        }
+        @foreach (var lr in Model)
+        {
+            <tr>
+                <th scope="row">@serial</th>
+                <td><input type="checkbox" name="selectedRequests" value="@lr.ID" checked /></td>
+                <td>Name</td>
+                <td>Department</td>
+                <td>@lr.StartDate</td>
+                <td>@lr.EndDate</td>
+                <td>@lr.Days</td>
+                <td>@lr.LeaveType</td>
+                <td>@lr.Comment</td>
+                <td>
+                        <a asp-action="Edit" asp-controller="LeaveRequest" asp-route-id="@lr.ID" class="navlink">Details</a>
+                </td>
+            </tr>
+            serial++;
+        }
+    </tbody>
+</table>
+    <div class="form-group">
+        <select name="actionType" class="form-control" style="width:200px; display:inline-block;">
+            <option value="Approve">Approve</option>
+            <option value="Decline">Decline</option>
+            <option value="Forward">Forward</option>
+        </select>
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </div>
+</form>
+<script>
+    // Select/Deselect All checkboxes
+    document.getElementById("selectAll").addEventListener("change", function (e) {
+        var checkboxes = document.querySelectorAll("input[name='selectedRequests']");
+        checkboxes.forEach(cb => cb.checked = e.target.checked);
+    });
+</script>
