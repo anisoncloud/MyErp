@@ -31,11 +31,11 @@ namespace MyErp.Controllers
         {
             /*var user = _userManager.Users
                 .Where(u => u.Id == id)
-                .Include(u=>u.LeaveAllocation)
+                .Include(u => u.LeaveAllocation)
                 .ToList();*/
             var user = _context.LeaveAllocations
-                .Include(x=>x.Users)
-                .SingleOrDefault(x=>x.EmpId==id);
+                .Include(x => x.Users)
+                .FirstOrDefault(x => x.EmpId == id);
             if (user == null)
             {
                 return NotFound();

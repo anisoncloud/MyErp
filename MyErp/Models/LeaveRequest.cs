@@ -13,7 +13,7 @@ namespace MyErp.Models
         public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }
         public int Days {  get; set; }
-        public string Stauts { get; set; } = "Pending";
+        public string LeaveStauts { get; set; } = "Pending";
         public string ManagerId {  get; set; }
         public string ManagerEmail {  get; set; }
         public DateTime RequestDate { get; set; } = DateTime.Now;

@@ -23,7 +23,8 @@ namespace MyErp.Controllers
         public async Task<IActionResult> Index()
         {
             var user = await _userManager.GetUserAsync(User);
-            var leaveRequest = _context.LeaveRequests.Where(x => x.Stauts == "Pending" && x.ManagerEmail==user.Email).ToList();
+            var leaveRequest = await _context.LeaveRequests
+                .Where(x => x.LeaveStauts == "Pending" && x.ManagerEmail==user.Email).ToListAsync();
             return View(leaveRequest);
         }
         public async Task<IActionResult> BulkAction(int[] selectedRequests, string actionType)
@@ -33,22 +34,30 @@ namespace MyErp.Controllers
                 TempData["Error"] = "No Data Selected";
                 return RedirectToAction("Index");
             }
-            var leaveRequests = _context.LeaveRequests
+            // The following code works in SQL Server version >=16    
+            /*var leaveRequests = await _context.LeaveRequests
                 .Where(lr => selectedRequests.Contains(lr.ID))
-                .ToList();
+                .ToListAsync();*/
+
+            var leaveRequests = new List<LeaveRequest>();
+            foreach (var id in selectedRequests)
+            {
+                var req = await _context.LeaveRequests.FindAsync(id);
+                if (req != null) leaveRequests.Add(req);
+            }
 
             foreach (var leaveRequest in leaveRequests)
             {
                 switch (actionType)
                 {
                     case "Approve":
-                        leaveRequest.Stauts = "Approved";
+                        leaveRequest.LeaveStauts = "Approved";
                         break;
                     case "Decline":
-                        leaveRequest.Stauts = "Declined";
+                        leaveRequest.LeaveStauts = "Declined";
                         break;
                     case "Forward":
-                        leaveRequest.Stauts = "Forwarded";
+                        leaveRequest.LeaveStauts = "Forwarded";
                         break;
                     default:
                         break;

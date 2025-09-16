@@ -22,7 +22,7 @@ namespace MyErp.Controllers
         }
         public IActionResult Index()
         {
-            var leaveRequest = _context.LeaveRequests.Where(x => x.Stauts == "Pending").ToList();
+            var leaveRequest = _context.LeaveRequests.Where(x => x.LeaveStauts == "Pending").ToList();
             return View(leaveRequest);
         }
 
@@ -50,7 +50,6 @@ namespace MyErp.Controllers
                 Comment = vm.Comment,
                 LeaveType = vm.LeaveType,
                 ManagerEmail = vm.ManagerEmail,
-                ManagerId = "ce56dffa-15e9-477c-9c40-d0b1f897d742",
             };
             _context.LeaveRequests.Add(leaveRequest);
             _context.SaveChanges();
