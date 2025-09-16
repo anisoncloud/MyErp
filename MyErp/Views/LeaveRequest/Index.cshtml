@@ -34,11 +34,8 @@
                 <td>@lr.Days</td>
                 <td>@lr.LeaveType</td>
                 <td>@lr.Comment</td>
-                <td>
-                    <ul class="navbar-nav ms-auto align-items-center">
-                        <li><a asp-action="Edit" asp-controller="LeaveRequest" asp-route-id="@lr.ID" class="navlink">Edit</a></li>                        
-                        <li><a asp-action="Delete" asp-controller="LeaveRequest" asp-route-id="@lr.ID" class="navlink">Delete</a></li>                        
-                    </ul>
+                <td><a asp-action="Edit" asp-controller="LeaveRequest" asp-route-id="@lr.ID" class="navlink">Edit</a>                      
+                        <a asp-action="Delete" asp-controller="LeaveRequest" asp-route-id="@lr.ID" class="navlink">Delete</a>                    
                 </td>
             </tr>
             serial++;

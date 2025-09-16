@@ -23,6 +23,10 @@ namespace MyErp.Controllers
         public async Task<IActionResult> Index()
         {
             var user = await _userManager.GetUserAsync(User);
+            if (user == null)
+            {
+                return RedirectToAction("login", "Account");
+            }
             var leaveRequest = await _context.LeaveRequests
                 .Where(x => x.LeaveStauts == "Pending" && x.ManagerEmail==user.Email).ToListAsync();
             return View(leaveRequest);
@@ -64,7 +68,8 @@ namespace MyErp.Controllers
                 }
             }
             await _context.SaveChangesAsync();
-            return View();
+            TempData["Success"] = "Updated Accordingly";
+            return RedirectToAction("Index");
         }
     }
 }
