@@ -34,6 +34,7 @@ namespace MyErp.Data
         public DbSet<LeaveEntitlement> LeaveEntitlements { get; set; }
         public DbSet<LeaveAllocation> LeaveAllocations { get; set; }
         public DbSet<LeaveRequest> LeaveRequests { get; set; }
+        public DbSet<Domain> Domains { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
