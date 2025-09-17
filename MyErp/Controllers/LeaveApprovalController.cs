@@ -39,16 +39,18 @@ namespace MyErp.Controllers
                 return RedirectToAction("Index");
             }
             // The following code works in SQL Server version >=16    
-            /*var leaveRequests = await _context.LeaveRequests
+            var leaveRequests = _context.LeaveRequests
+                //.AsEnumerable()
                 .Where(lr => selectedRequests.Contains(lr.ID))
-                .ToListAsync();*/
+                .ToList();
 
-            var leaveRequests = new List<LeaveRequest>();
+            // The following code works in SQL Server version <16    
+            /*var leaveRequests = new List<LeaveRequest>();
             foreach (var id in selectedRequests)
             {
                 var req = await _context.LeaveRequests.FindAsync(id);
                 if (req != null) leaveRequests.Add(req);
-            }
+            }*/
 
             foreach (var leaveRequest in leaveRequests)
             {
@@ -66,7 +68,9 @@ namespace MyErp.Controllers
                     default:
                         break;
                 }
+                leaveRequest.DecidedDate = DateTime.Now;
             }
+            
             await _context.SaveChangesAsync();
             TempData["Success"] = "Updated Accordingly";
             return RedirectToAction("Index");

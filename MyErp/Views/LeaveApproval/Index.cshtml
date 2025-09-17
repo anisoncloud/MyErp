@@ -32,20 +32,20 @@
         @{
             var serial = 1;
         }
-        @foreach (var lr in Model)
+        @foreach (var lrs in Model)
         {
             <tr>
                 <th scope="row">@serial</th>
-                <td><input type="checkbox" name="selectedRequests" value="@lr.ID" checked /></td>
+                <td><input type="checkbox" name="selectedRequests" value="@lrs.ID" checked /></td>
                 <td>Name</td>
                 <td>Department</td>
-                <td>@lr.StartDate</td>
-                <td>@lr.EndDate</td>
-                <td>@lr.Days</td>
-                <td>@lr.LeaveType</td>
-                <td>@lr.Comment</td>
+                <td>@lrs.StartDate</td>
+                <td>@lrs.EndDate</td>
+                <td>@lrs.Days</td>
+                <td>@lrs.LeaveType</td>
+                <td>@lrs.Comment</td>
                 <td>
-                        <a asp-action="Edit" asp-controller="LeaveRequest" asp-route-id="@lr.ID" class="navlink">Details</a>
+                        <a asp-action="Edit" asp-controller="LeaveRequest" asp-route-id="@lrs.ID" class="navlink">Details</a>
                 </td>
             </tr>
             serial++;
@@ -53,7 +53,8 @@
     </tbody>
 </table>
     <div class="form-group">
-        <select name="actionType" class="form-control" style="width:200px; display:inline-block;">
+        <select name="actionType" class="form-control" style="width:200px; display:inline-block;" required>
+            <option value="">---Select Option---</option>
             <option value="Approve">Approve</option>
             <option value="Decline">Decline</option>
             <option value="Forward">Forward</option>

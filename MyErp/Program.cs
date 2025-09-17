@@ -10,7 +10,9 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 builder.Services.AddDbContext<AppDbContex>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("CustUserRollConn")));
+    options.UseSqlServer(builder.Configuration.GetConnectionString("CustUserRollConn"))
+    .LogTo(Console.WriteLine, LogLevel.Information)
+    .EnableSensitiveDataLogging());
 // Register Identity services with custom user class
 builder.Services.AddIdentity<Users, IdentityRole>(options =>
 {
