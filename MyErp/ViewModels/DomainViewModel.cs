@@ -18,6 +18,10 @@ namespace MyErp.ViewModels
         [DisplayFormat(DataFormatString = "{0:dd-MM-yyyy}", ApplyFormatInEditMode = true)]
         [DataType(DataType.Date)]
         public DateTime RegistarDate { get; set; }
+        [DisplayName("Last Updated")]
+        [DisplayFormat(DataFormatString = "{0:dd-MM-yyyy}", ApplyFormatInEditMode = true)]
+        [DataType(DataType.Date)]
+        public DateTime LastUpdated { get; set; }
         public int ForYear { get; set; }
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0: dd-MM-yyyy}", ApplyFormatInEditMode = true)]

@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
 using MyErp.Data;
 using MyErp.Models;
 using MyErp.ViewModels;
@@ -17,7 +18,9 @@ namespace MyErp.Controllers
 
         public IActionResult Index()
         {
-            var domains = _context.Domains.ToList();
+            var domains = _context.Domains
+                .Include(x=>x.CrmCompany)
+                .ToList();
             return View(domains);
         }        
 
@@ -51,11 +54,13 @@ namespace MyErp.Controllers
                 IpAddress = vm.IpAddress,
                 Analytics = vm.Analytics,
                 Dns = vm.Dns,
-                Comments = vm.Comments
+                Comments = vm.Comments,
+                LastUpdated = vm.LastUpdated,
             };
             _context.Domains.Add(domain);
             _context.SaveChanges();
-            return View(vm);
+            TempData["Success"] = "Domain Added Successfully";
+            return RedirectToAction("Index");
         }
     }
 }

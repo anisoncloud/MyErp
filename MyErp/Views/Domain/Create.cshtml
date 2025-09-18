@@ -5,66 +5,85 @@
 @{
 }
 <h2>Create Domain</h2>
-
-<form asp-action="Create" method="post">
+<div class="container">
+    <form asp-action="Create" method="post">
     @Html.AntiForgeryToken()
     <div asp-validation-summary="ModelOnly" class="text-danger"></div><a asp-action="Create" asp-controller="CrmCompany">Create Company</a>
-    <div class="mb-3">
-        <label asp-for="CompanyId"></label>
-        <select asp-for="CompanyId" asp-items="Model.CrmCompanies" class="form-control">
-            <option value="">---Select Company Name---</option>
-        </select>
-        <span class="text-danger" asp-validation-for="CompanyId"></span>
-    </div>
-    <div class="mb-3">
-        <label asp-for="DomainName"></label>
-        <input asp-for="DomainName" class="form-control" />
-        <span class="text-danger" asp-validation-for="DomainName"></span>
-    </div>
-    <div class="mb-3">
-        <label asp-for="DomainRegistrant"></label>
-        <input asp-for="DomainRegistrant" class="form-control" />
-        <span class="text-danger" asp-validation-for="DomainRegistrant"></span>
-    </div>
-    <div class="mb-3">
-        <label asp-for="RegistarDate"></label>        
-        <input asp-for="RegistarDate" class="form-control" />
-        <span class="text-danger" asp-validation-for="RegistarDate"></span>
-    </div>
-    <div class="mb-3">
-        <label asp-for="ForYear"></label>
-        <input asp-for="ForYear" class="form-control" />
-        <span class="text-danger" asp-validation-for="ForYear"></span>
-    </div>
-    <div class="mb-3">
-        <label asp-for="ExpireDate"></label>
-        <input asp-for="ExpireDate" class="form-control" />
-        <span class="text-danger" asp-validation-for="ExpireDate"></span>
-    </div>
-    <div class="mb-3">
-        <label asp-for="IpAddress"></label>
-        <input asp-for="IpAddress" class="form-control" />
-        <span class="text-danger" asp-validation-for="IpAddress"></span>
-    </div>
-    <div class="mb-3">
-        <label asp-for="Hosting"></label>
-        <input asp-for="Hosting" class="form-control" />
-        <span class="text-danger" asp-validation-for="Hosting"></span>
-    </div>
-    <div class="mb-3">
-        <label asp-for="Dns"></label>
-        <input asp-for="Dns" class="form-control" />
-        <span class="text-danger" asp-validation-for="Dns"></span>
-    </div>
-    <div class="mb-3">
-        <label asp-for="Analytics"></label>
-        <input asp-for="Analytics" class="form-control" />
-        <span class="text-danger" asp-validation-for="Analytics"></span>
-    </div>
-    <div class="mb-3">
-        <label asp-for="Comments"></label>
-        <textarea asp-for="Comments" class="form-control"></textarea>
-    </div>
 
-    <button type="submit" class="btn btn-primary">Submit Request</button>
-</form>
+    <div class="row">
+        <div class="col">
+                <div class="mb-3">
+                    <label asp-for="CompanyId"></label>
+                    <select asp-for="CompanyId" asp-items="Model.CrmCompanies" class="form-control">
+                        <option value="">---Select Company Name---</option>
+                    </select>
+                    <span class="text-danger" asp-validation-for="CompanyId"></span>
+                </div>
+                <div class="mb-3">
+                    <label asp-for="DomainName"></label>
+                    <input asp-for="DomainName" class="form-control" />
+                    <span class="text-danger" asp-validation-for="DomainName"></span>
+                </div>
+                <div class="mb-3">
+                    <label asp-for="DomainRegistrant"></label>
+                    <input asp-for="DomainRegistrant" class="form-control" />
+                    <span class="text-danger" asp-validation-for="DomainRegistrant"></span>
+                </div>
+                <div class="mb-3">
+                    <label asp-for="RegistarDate"></label>
+                    <input asp-for="RegistarDate" class="form-control" />
+                    <span class="text-danger" asp-validation-for="RegistarDate"></span>
+                </div>
+                <div class="mb-3">
+                    <label asp-for="LastUpdated"></label>
+                    <input asp-for="LastUpdated" class="form-control" />
+                    <span class="text-danger" asp-validation-for="LastUpdated"></span>
+                </div>
+                <div class="mb-3">
+                    <label asp-for="ForYear"></label>
+                    <input asp-for="ForYear" class="form-control" />
+                    <span class="text-danger" asp-validation-for="ForYear"></span>
+                </div>
+                <div class="mb-3">
+                    <label asp-for="ExpireDate"></label>
+                    <input asp-for="ExpireDate" class="form-control" />
+                    <span class="text-danger" asp-validation-for="ExpireDate"></span>
+                </div>
+        </div>
+        <div class="col">
+                
+                <div class="mb-3">
+                    <label asp-for="IpAddress"></label>
+                    <input asp-for="IpAddress" class="form-control" />
+                    <span class="text-danger" asp-validation-for="IpAddress"></span>
+                </div>
+                <div class="mb-3">
+                    <label asp-for="Hosting"></label>
+                    <input asp-for="Hosting" class="form-control" />
+                    <span class="text-danger" asp-validation-for="Hosting"></span>
+                </div>
+                <div class="mb-3">
+                    <label asp-for="Dns"></label>
+                    <input asp-for="Dns" class="form-control" />
+                    <span class="text-danger" asp-validation-for="Dns"></span>
+                </div>
+                <div class="mb-3">
+                    <label asp-for="Analytics"></label>
+                    <input asp-for="Analytics" class="form-control" />
+                    <span class="text-danger" asp-validation-for="Analytics"></span>
+                </div>
+                <div class="mb-3">
+                    <label asp-for="Comments"></label>
+                    <textarea asp-for="Comments" class="form-control"></textarea>
+                </div>
+        </div>
+    </div>
+        <button type="submit" class="btn btn-primary">Submit Request</button>
+    </form>
+</div>
+
+    
+    
+
+    
+

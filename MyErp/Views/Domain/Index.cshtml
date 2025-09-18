@@ -4,6 +4,11 @@
 *@
 @{
 }
+@if (TempData["Success"] != null )
+{
+    <div class="alert alert-success">@TempData["Success"]</div>
+}
+
 <h1 class="">All Domains</h1>
 <p><a asp-action="Create">Create Domain</a></p>
 <table class="table table-striped">
@@ -32,12 +37,12 @@
         {
             <tr>
                 <th scope="row">@serial</th>
-                <td>@domain.CompanyId</td>
+                <td>@domain.CrmCompany.Name</td>
                 <td>@domain.DomainName</td>
-                <td>@domain.RegistarDate</td>
-                <td></td>
+                <td>@Html.DisplayFor(m => domain.RegistarDate)</td>
+                <td>@domain.LastUpdated?.ToString("dd-MMM-yyyy")</td>
                 <td>@domain.ForYear</td>
-                <td>@domain.ExpireDate</td>
+                <td>@domain.ExpireDate?.ToString("dd-MMM-yyyy")</td>
                 <td>@domain.IpAddress</td>
                 <td>@domain.Hosting</td>
                 <td>@domain.Dns</td>
