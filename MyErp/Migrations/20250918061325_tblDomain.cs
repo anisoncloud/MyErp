@@ -18,8 +18,16 @@ namespace MyErp.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     DomainName = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    IpAddress = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    CompanyId = table.Column<int>(type: "int", nullable: false),
+                    IpAddress = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Hosting = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    DomainRegistrant = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    RegistarDate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    ForYear = table.Column<int>(type: "int", nullable: true),
+                    ExpireDate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    Dns = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Analytics = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    CompanyId = table.Column<int>(type: "int", nullable: true),
+                    Comments = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
                     UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
                     CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
@@ -32,8 +40,7 @@ namespace MyErp.Migrations
                         name: "FK_Domains_CrmCompanies_CompanyId",
                         column: x => x.CompanyId,
                         principalTable: "CrmCompanies",
-                        principalColumn: "ID",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "ID");
                 });
 
             migrationBuilder.CreateIndex(

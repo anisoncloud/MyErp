@@ -51,7 +51,6 @@ namespace MyErp.Controllers
                 var req = await _context.LeaveRequests.FindAsync(id);
                 if (req != null) leaveRequests.Add(req);
             }*/
-
             foreach (var leaveRequest in leaveRequests)
             {
                 switch (actionType)
@@ -69,8 +68,7 @@ namespace MyErp.Controllers
                         break;
                 }
                 leaveRequest.DecidedDate = DateTime.Now;
-            }
-            
+            }            
             await _context.SaveChangesAsync();
             TempData["Success"] = "Updated Accordingly";
             return RedirectToAction("Index");
