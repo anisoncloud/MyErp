@@ -1,4 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc.Rendering;
+using MyErp.Models;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
 namespace MyErp.ViewModels
@@ -6,6 +8,7 @@ namespace MyErp.ViewModels
     public class RegisterViewModel
     {
         [Required(ErrorMessage = "Name is required.")]
+        [DisplayName("Full Name")]
         public string FullName { get; set; }
         [Required(ErrorMessage = "Email is required.")]
         [EmailAddress(ErrorMessage = "Invalid email address.")]
@@ -19,11 +22,16 @@ namespace MyErp.ViewModels
         [DataType(DataType.Password)]
         [Display(Name = "Confirm Password")]
         public string ConfirmPassword { get; set; }
+        [DisplayName("Company Name")]
         public int CompanyId {  get; set; }
         public List<SelectListItem> Companies { get; set; }
         public List<SelectListItem> Departments {  get; set; }
         public List<SelectListItem> Designations {  get; set; }
+        [DisplayName("Position")]
         public int DesignationId { get; set; }
+        [DisplayName("Department")]
         public int DepartmentId {  get; set; }
+        [DisplayName("Gender Male/Female")]
+        public Gender? Gender { get; set; }
     }
 }

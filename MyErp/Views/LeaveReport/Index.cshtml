@@ -7,6 +7,7 @@
 
 
 <h1 class="">Leave Report for : @DateTime.Today.Year</h1>
+<form asp-action="Index"></form>
 
 <table class="table table-striped table-bordered">
     <thead>
@@ -44,9 +45,9 @@
             <td>@Model.LeaveAllocation.Sick</td>
             <td>@Model.CalculateTotalSick()</td>
             <td>@Model.LeaveAllocation.Casual</td>
-            <td></td>
-            <td></td>
-            <td></td>
+            <td>@Model.CalculateTotalCasual()</td>
+            <td>@Model.LeaveAllocation.Earned</td>
+            <td>@Model.CalculateTotalEarned()</td>
             <td></td>
             <td></td>
             <td></td>

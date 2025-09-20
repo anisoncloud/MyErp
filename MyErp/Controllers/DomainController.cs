@@ -62,5 +62,11 @@ namespace MyErp.Controllers
             TempData["Success"] = "Domain Added Successfully";
             return RedirectToAction("Index");
         }
+        [HttpGet]
+        public IActionResult GetByIp(string ip) { 
+            var domain = _context.Domains.Where(x=>x.IpAddress==ip).ToList();
+            return View(domain);
+        }
+
     }
 }

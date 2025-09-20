@@ -109,7 +109,8 @@ namespace MyErp.Controllers
                     NormalizedEmail = model.Email.ToUpper(),
                     DepartmentId = model.DepartmentId,
                     CompanyId = model.CompanyId,
-                    DesignationId = model.DesignationId
+                    DesignationId = model.DesignationId,
+                    Gender = model.Gender,
                 };
                 var result = await _userManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)

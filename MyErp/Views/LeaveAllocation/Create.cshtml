@@ -19,16 +19,23 @@
         <input asp-for="Earned" class="form-control" />
         <span asp-validation-for="Earned" class="text-danger"></span>
     </div>
-    <div class="mb-3">
-        <label asp-for="Maternity" class="control-label"></label>
-        <input asp-for="Maternity" class="form-control" />
-        <span asp-validation-for="Maternity" class="text-danger"></span>
-    </div>
-    <div class="mb-3">
-        <label asp-for="Paternity" class="control-label"></label>
-        <input asp-for="Paternity" class="form-control" />
-        <span asp-validation-for="Paternity" class="text-danger"></span>
-    </div>
+    @if (Model.Users.Gender==Gender.Female)
+    {
+        <div class="mb-3">
+            <label asp-for="Maternity" class="control-label"></label>
+            <input asp-for="Maternity" class="form-control" />
+            <span asp-validation-for="Maternity" class="text-danger"></span>
+        </div>
+    }
+    @if (Model.Users.Gender == Gender.Male)
+    {
+        <div class="mb-3">
+            <label asp-for="Paternity" class="control-label"></label>
+            <input asp-for="Paternity" class="form-control" />
+            <span asp-validation-for="Paternity" class="text-danger"></span>
+        </div>
+    }
+    
     <div class="mb-3">
         <label asp-for="Pilgrimage" class="control-label"></label>
         <input asp-for="Pilgrimage" class="form-control" />

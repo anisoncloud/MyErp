@@ -22,5 +22,7 @@ namespace MyErp.Models
         public Users? Manager { get; set; }
         public LeaveAllocation? LeaveAllocation { get; set; }
         public ICollection<LeaveRequest> LeaveRequests { get; set; }
+        public string? GanderId {get; set;}
+        public Gender? Gender { get; set; }
     }
 }

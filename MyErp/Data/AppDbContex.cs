@@ -78,7 +78,10 @@ namespace MyErp.Data
                 .HasOne(p => p.Project)
                 .WithMany(p=>p.PeopleProjects)
                 .HasForeignKey(p=>p.ProjectId)
-                .OnDelete(DeleteBehavior.Cascade);            
+                .OnDelete(DeleteBehavior.Cascade);
+            builder.Entity<Users>()
+                .Property(x => x.Gender)
+                .HasConversion<string>();
         }
 
 

@@ -12,55 +12,88 @@
             <form asp-action="Register" method="post" class="mt-4">
                 @Html.AntiForgeryToken()
                 <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
-                <div class="mb-3">
-                    <label asp-for="CompanyId" class="form-label"></label>
-                    <select asp-for="CompanyId" class="form-control" asp-items="Model.Companies">
-                        <option value="">---Select Company---</option>
-                    </select>
-                    <span asp-validation-for="CompanyId" class="text-danger"></span>
+                <div class="row">
+                    <div class="col">
+                        <div class="mb-3">
+                            <label asp-for="Gender" class="form-label"></label>
+                            <select asp-for="Gender" asp-items="Html.GetEnumSelectList<Gender>()" class="form-control" required>
+                                <option value="">---Select Gender---</option>
+                            </select>
+                            <span asp-validation-for="Gender" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="mb-3">
+                            <label asp-for="CompanyId" class="form-label"></label>
+                            <select asp-for="CompanyId" class="form-control" asp-items="Model.Companies" required>
+                                <option value="">---Select Company---</option>
+                            </select>
+                            <span asp-validation-for="CompanyId" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="mb-3">
+                            <label asp-for="DepartmentId" class="form-label"></label>
+                            <select asp-for="DepartmentId" class="form-control" asp-items="Model.Departments" required>
+                                <option value="">---Select Department---</option>
+                            </select>
+                            <span asp-validation-for="CompanyId" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div> 
+                <div class="row">
+                    <div class="col">
+                        <div class="mb-3">
+                            <label asp-for="DesignationId" class="form-label"></label>
+                            <select asp-for="DesignationId" class="form-control" asp-items="Model.Designations" required>
+                                <option value="">---Select Designation---</option>
+                            </select>
+                            <span asp-validation-for="CompanyId" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="mb-3">
+                            <label asp-for="FullName" class="form-label"></label>
+                            <input asp-for="FullName" class="form-control" required />
+                            <span asp-validation-for="FullName" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="mb-3">
+                            <label asp-for="Email" class="form-label"></label>
+                            <input asp-for="Email" class="form-control" />
+                            <span asp-validation-for="Email" class="text-danger"></span>
+                        </div>
+                    </div>
                 </div>
-                <div class="mb-3">
-                    <label asp-for="DepartmentId" class="form-label"></label>
-                    <select asp-for="DepartmentId" class="form-control" asp-items="Model.Departments">
-                        <option value="">---Select Department---</option>
-                    </select>
-                    <span asp-validation-for="CompanyId" class="text-danger"></span>
-                </div>
-                <div class="mb-3">
-                    <label asp-for="DesignationId" class="form-label"></label>
-                    <select asp-for="DesignationId" class="form-control" asp-items="Model.Designations">
-                        <option value="">---Select Designation---</option>
-                    </select>
-                    <span asp-validation-for="CompanyId" class="text-danger"></span>
-                </div>
-                <div class="mb-3">
-                    <label asp-for="FullName" class="form-label"></label>
-                    <input asp-for="FullName" class="form-control" />
-                    <span asp-validation-for="FullName" class="text-danger"></span>
-                </div>
-                <div class="mb-3">
-                    <label asp-for="Email" class="form-label"></label>
-                    <input asp-for="Email" class="form-control" />
-                    <span asp-validation-for="Email" class="text-danger"></span>
-                </div>
-                <div class="mb-3">
+               
+                
+                
+                <div class="row">
+
+                <div class="mb-3 col">
                     <label asp-for="Password" class="form-label"></label>
                     <input asp-for="Password" type="password" class="form-control" />
                     <span asp-validation-for="Password" class="text-danger"></span>
                 </div>
-                <div class="mb-3">
+                <div class="mb-3 col">
                     <label asp-for="ConfirmPassword" class="form-label"></label>
                     <input asp-for="ConfirmPassword" type="password" class="form-control" />
                     <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
                 </div>
-                
-                <button type="submit" value="Rregister" class="btn btn-success w-100 p-2">Register</button>
+                    <div class="mb-3 col">
+                        <p></p>
+                    <button type="submit" value="Rregister" class="btn btn-success w-100 p-2 ">Register</button>
+                </div>
+                </div>
                 <p class="text-center mt-2">
                     Already have an account? <a asp-controller="Account" asp-action="Login" class="text-decoration-none">Login here</a>
                 </p>
                 <div class="text-center">
                     <a asp-action="Index" asp-controller="Home" class="text-decoration-none mt-3">Back</a>
                 </div>
+
+                
             </form>
         </div>
     </div>

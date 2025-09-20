@@ -23,14 +23,15 @@ namespace MyErp.Controllers
 
         public async Task<IActionResult> Index()
         {
+            //int year = 2025;
             var user = await _userManager.GetUserAsync(User);
             var leaveAllocation = _context.LeaveAllocations.FirstOrDefault(x => x.EmpId == user.Id);
-            var enjoyedLeave = _context.LeaveRequests.Where(x => x.EmpId == user.Id && x.LeaveStauts == "Approved" && x.RequestDate.Year==DateTime.Now.Year).ToList();
+            var approvedLeave = _context.LeaveRequests.Where(x => x.EmpId == user.Id && x.LeaveStauts == "Approved" && x.RequestDate.Year== DateTime.Today.Year).ToList();
             var vm = new LeaveReportViewModel
             {
                 Users = user,
                 LeaveAllocation = leaveAllocation,
-                LeaveRequest = enjoyedLeave
+                LeaveRequest = approvedLeave
             };
             return View(vm);
         }
