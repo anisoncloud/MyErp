@@ -35,7 +35,7 @@ namespace MyErp.Data
         public DbSet<LeaveAllocation> LeaveAllocations { get; set; }
         public DbSet<LeaveRequest> LeaveRequests { get; set; }
         public DbSet<Domain> Domains { get; set; }
-
+        public DbSet<CrmContact> CrmContacts { get; set; }
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder); // this is required

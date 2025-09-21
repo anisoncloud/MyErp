@@ -9,5 +9,6 @@
         public string? CompanyPhone { get; set; }
         public string? CompanyAddress {  get; set; }
         public ICollection<Domain>? Domains { get; set; }
+        public ICollection<CrmContact>? CrmContacts { get; set; }
     }
 }
