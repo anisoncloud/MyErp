@@ -8,31 +8,57 @@
 <form asp-action="Create">
     @Html.AntiForgeryToken()
     <div class="text-danger" asp-validation-summary="ModelOnly"></div>
-    <div class="md-3">
-        <label class="form-label" asp-for="Name"></label>
-        <input class="form-control" asp-for="Name" />
-        <span class="text-danger" asp-validation-for="Name"></span>
+    <div class="row mb-5">
+        <div class="col">
+            <div class="md-3">
+                <label class="form-label" asp-for="Name"></label>
+                <input class="form-control" asp-for="Name" />
+                <span class="text-danger" asp-validation-for="Name"></span>
+            </div>
+            <div class="text-danger" asp-validation-summary="ModelOnly"></div>
+            <div class="md-3">
+                <label class="form-label" asp-for="Description"></label>
+                <input class="form-control" asp-for="Description" />
+                <span class="text-danger" asp-validation-for="Description"></span>
+            </div>
+            <div class="md-3">
+                <label class="form-label" asp-for="CompanyPhone"></label>
+                <input class="form-control" asp-for="CompanyPhone" />
+                <span class="text-danger" asp-validation-for="CompanyPhone"></span>
+            </div>
+            
+            <div class="md-3">
+                <label class="form-label" asp-for="CompanyEmail"></label>
+                <span class="text-danger" asp-validation-for="CompanyEmail"></span>
+                <input class="form-control" asp-for="CompanyEmail" />
+                
+            </div>
+        </div>
+        <div class="col">
+            <div class="md-3">
+                <label class="form-label" asp-for="ContactPerson"></label>
+                <input class="form-control" asp-for="ContactPerson" />
+                <span class="text-danger" asp-validation-for="ContactPerson"></span>
+            </div>
+            <div class="text-danger" asp-validation-summary="ModelOnly"></div>
+            <div class="md-3">
+                <label class="form-label" asp-for="ContactPersonEmail"></label>
+                <input class="form-control" asp-for="ContactPersonEmail" />
+                <span class="text-danger" asp-validation-for="ContactPersonEmail"></span>
+            </div>
+            <div class="md-3">
+                <label class="form-label" asp-for="ContactPersonPhone"></label>
+                <input class="form-control" asp-for="ContactPersonPhone" />
+                <span class="text-danger" asp-validation-for="ContactPersonPhone"></span>
+            </div>
+            <div class="md-3">
+                <label class="form-label" asp-for="CompanyAddress"></label>
+                <input class="form-control" asp-for="CompanyAddress" />
+                <span class="text-danger" asp-validation-for="CompanyAddress"></span>
+            </div>
+            
+        </div>
     </div>
-    <div class="text-danger" asp-validation-summary="ModelOnly"></div>
-    <div class="md-3">
-        <label class="form-label" asp-for="Description"></label>
-        <input class="form-control" asp-for="Description" />
-        <span class="text-danger" asp-validation-for="Description"></span>
-    </div>
-    <div class="md-3">
-        <label class="form-label" asp-for="CompanyPhone"></label>
-        <input class="form-control" asp-for="CompanyPhone" />
-        <span class="text-danger" asp-validation-for="CompanyPhone"></span>
-    </div>
-    <div class="md-3">
-        <label class="form-label" asp-for="CompanyAddress"></label>
-        <input class="form-control" asp-for="CompanyAddress" />
-        <span class="text-danger" asp-validation-for="CompanyAddress"></span>
-    </div>
-    <div class="md-3">
-        <label class="form-label" asp-for="CompanyEmail"></label>
-        <input class="form-control" asp-for="CompanyEmail" />
-        <span class="text-danger" asp-validation-for="CompanyEmail"></span>
-    </div>
+    
     <button type="submit" value="Create" class="btn btn-primary">Create</button>
 </form>
