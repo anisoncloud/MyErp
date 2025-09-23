@@ -18,16 +18,7 @@ namespace MyErp.Models
         public string? CompanyPhone { get; set; }
         [DisplayName("Company's Address/Location")]
         public string? CompanyAddress {  get; set; }
-        [DisplayName("Contact Person Full Name")]
-        public string? ContactPerson {  get; set; }
-        [DisplayName("Designation")]
-        public string? Designation {  get; set; }
-        [DisplayName("Contact Person's Mobile")]
-        public string? ContactPersonPhone {  get; set; }
-        [DisplayName("Contact Person's Email")]
-        [Required(ErrorMessage = "Email is required.")]
-        [EmailAddress(ErrorMessage = "Invalid Email Address.")]
-        public string? ContactPersonEmail {  get; set; }
+      
         public ICollection<Domain>? Domains { get; set; }
         public ICollection<CrmContact>? CrmContacts { get; set; }
     }

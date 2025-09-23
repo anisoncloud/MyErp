@@ -1,10 +1,11 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
+﻿using Microsoft.AspNetCore.Mvc.Rendering;
+using MyErp.Models;
+using System.ComponentModel.DataAnnotations.Schema;
 
-namespace MyErp.Models
+namespace MyErp.ViewModels
 {
-    public class CrmContact : BaseEntity
+    public class CrmContactViewModel
     {
-        public int Id { get; set; }
         public string Name { get; set; }
         public string? Designation { get; set; }
         public string? Email { get; set; }
@@ -12,7 +13,6 @@ namespace MyErp.Models
         public string? Photo { get; set; }
         public string? Comments { get; set; }
         public int CrmCompanyId { get; set; }
-        [ForeignKey("CrmCompanyId")]
-        public CrmCompany? CrmCompany { get; set; }
+        public List<SelectListItem> CrmCompany { get; set; }
     }
 }
