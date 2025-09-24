@@ -187,7 +187,6 @@ namespace MyErp.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("CompanyEmail")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("CompanyPhone")
