@@ -17,10 +17,13 @@ namespace MyErp.Controllers
         }
         public IActionResult Index()
         {
-            var contacts = _context.CrmContacts
-                .Include(x=>x.CrmCompany)
+            var companies = _context.CrmCompanies
+                .Include(x => x.CrmContacts)
                 .ToList();
-            return View(contacts);
+            /*var contacts = _context.CrmContacts
+                .Include(x=>x.CrmCompany)
+                .ToList();*/
+            return View(companies);
         }
         [HttpGet]
         public IActionResult Create()
