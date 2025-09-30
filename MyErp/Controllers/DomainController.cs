@@ -29,11 +29,11 @@ namespace MyErp.Controllers
         {
             var vm = new DomainViewModel
             {
-                CrmCompanies = _context.CrmCompanies
+                CrmCompanies = _context.CrmCompanies.OrderBy(x=>x.Name)
                 .Select(d => new SelectListItem
                 {
                     Value = d.ID.ToString(),
-                    Text = d.Name
+                    Text = $"{d.Name} - {"ComapnyID"}-{d.ID}"
                 }).ToList()
             };
             return View(vm);

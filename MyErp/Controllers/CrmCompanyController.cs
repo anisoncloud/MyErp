@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using MyErp.Data;
 using MyErp.Models;
 
@@ -16,7 +17,10 @@ namespace MyErp.Controllers
         public IActionResult Index()
         {
             var companies = _dbContext.CrmCompanies.ToList();
-
+            /*var companies = _dbContext.CrmCompanies
+            .Select(c => new { c.CompanyEmail })
+            .ToList();
+            */
             return View(companies);
         }
         [HttpGet]
