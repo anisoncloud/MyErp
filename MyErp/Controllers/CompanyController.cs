@@ -49,7 +49,7 @@ namespace MyErp.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name,Description")] Company company)
+        public async Task<IActionResult> Create([Bind("ID,Name,CustomCompanyId,Description")] Company company)
         {
             ModelState.Remove("Users");
             if (ModelState.IsValid)
@@ -80,20 +80,21 @@ namespace MyErp.Controllers
         // POST: Companies/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
+        [HttpPost, ActionName("Edit")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Description")] Company company)
+        public async Task<IActionResult> EditPost(int id, [Bind("ID,Name,CustomCompanyId,Description")] Company company)
         {
             if (id != company.ID)
             {
                 return NotFound();
             }
-
+            ModelState.Remove("Users");
             if (ModelState.IsValid)
             {
                 try
                 {
                     _context.Companies.Update(company);
+                    _context.SaveChanges();
                 }
                 catch (DbUpdateConcurrencyException)
                 {

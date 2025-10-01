@@ -24,5 +24,6 @@ namespace MyErp.Models
         public ICollection<LeaveRequest> LeaveRequests { get; set; }
         public string? GanderId {get; set;}
         public Gender? Gender { get; set; }
+        public string? CustomEmployeeId {  get; set; }
     }
 }

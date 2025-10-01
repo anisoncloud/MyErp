@@ -7,6 +7,7 @@ namespace MyErp.ViewModels
 {
     public class RegisterViewModel
     {
+        public string Id {  get; set; }
         [Required(ErrorMessage = "Name is required.")]
         [DisplayName("Full Name")]
         public string FullName { get; set; }
@@ -33,5 +34,7 @@ namespace MyErp.ViewModels
         public int DepartmentId {  get; set; }
         [DisplayName("Gender Male/Female")]
         public Gender? Gender { get; set; }
+        public string? CustomEmployeeId {  get; set; }
+        public string Role { get; set; }
     }
 }

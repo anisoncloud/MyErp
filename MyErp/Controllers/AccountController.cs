@@ -29,7 +29,7 @@ namespace MyErp.Controllers
             var user = await _userManager.Users
                 .Include(x=>x.Company)
                 .Include(y=>y.Department)
-                .Include(z=>z.Designation)
+                .Include(z=>z.Designation)                
                 .ToListAsync();
                 return View(user);
         }
@@ -194,6 +194,23 @@ namespace MyErp.Controllers
             
             
             return View(user);
+        }
+        [HttpPost, ActionName("Edit")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> EditPost(string Id, RegisterViewModel vm)
+        {
+            var user = await _userManager.FindByIdAsync(Id);
+            if (user == null)
+            {
+                return View("Error");
+            }
+            user.CustomEmployeeId = vm.CustomEmployeeId;            
+            var resutl = await _userManager.UpdateAsync(user);
+            if (resutl.Succeeded)
+            {
+                return RedirectToAction("Index");
+            }
+            return View(vm);
         }
 
         [HttpPost]
