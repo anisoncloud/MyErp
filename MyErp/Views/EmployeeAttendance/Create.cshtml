@@ -1,0 +1,31 @@
+﻿@model MyErp.Models.EmployeeAttendance;
+@{
+    ViewData["Title"] = "Attendance";
+    Layout = "_AccountLayout";
+}
+
+<div class="account-container">
+    <div class="attendance-box">
+        <div class="col">
+            <h2 class="text-center display-6">Login</h2>
+            <form asp-action="Create" method="post" class="mt-4">
+                @Html.AntiForgeryToken()
+                <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+                <div class="mb-6">
+                    <label asp-for="CustomEmployeeId" class="form-label"></label>
+                    <input asp-for="CustomEmployeeId" class="form-control" />
+                    <span asp-validation-for="CustomEmployeeId" class="text-danger"></span>
+                </div>
+                <div class="mt-6 pt-6">
+                <button type="submit" value="Login" class="btn btn-success w-100 p-2">Submit</button>
+                </div>                
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

@@ -25,5 +25,6 @@ namespace MyErp.Models
         public string? GanderId {get; set;}
         public Gender? Gender { get; set; }
         public string? CustomEmployeeId {  get; set; }
+        public ICollection<EmployeeAttendance> EmployeeAttendances { get; set; }
     }
 }

@@ -1,0 +1,36 @@
+﻿@using Microsoft.AspNetCore.Identity;
+@model IEnumerable<Users>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Name</th>
+            <th scope="col">Id</th>
+            <th scope="col">Company</th>
+            <th scope="col">Department</th>
+            <th scope="col">InTime</th>
+            <th scope="col">OutTime</th>
+            <th scope="col">Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        @{
+            var serial = 1;
+        }
+        @foreach (var user in Model)
+        {
+            <tr>
+                <th scope="row">@serial</th>
+                <td>@user.FullName</td>
+                <td>@user.Company.CustomCompanyId@user.CustomEmployeeId </td>
+                <td>@user.Company.Name</td>
+                <td>@user.Department.Name</td>
+                <td>Intime</td>
+                <td>OutTime</td>
+                <td></td>
+            </tr>
+            serial++;
+        }
+    </tbody>
+</table>
