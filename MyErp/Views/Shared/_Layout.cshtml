@@ -37,6 +37,23 @@
                             <a class="nav-link text-dark" asp-area="" asp-controller="AllApproval" asp-action="Index">Approval</a>
                         </li>
                         <li class="nav-item dropdown">
+                            <a class="nav-link text-dark dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Accounts</a>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" asp-area="" asp-controller="" asp-action="">Chart Of Account</a></li>
+                                <li><a class="dropdown-item" asp-area="" asp-controller="" asp-action="">Ledger</a></li>
+                                <li><a class="dropdown-item" asp-area="" asp-controller="" asp-action="">JournalEntry</a></li>
+                                <li><a class="dropdown-item" asp-area="" asp-controller="" asp-action="">Trial Blance</a></li>
+                                <li><a class="dropdown-item" asp-area="" asp-controller="" asp-action="">Balance Sheet</a></li>                                
+                                <li class="dropend">
+                                    <a class="dropdown-item dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Accounts Reports</a>
+                                    <ul class="dropdown-menu">
+                                        <li><a class="dropdown-item" asp-area="" asp-controller="" asp-action="">Report 1</a></li>
+                                    </ul>
+                                </li>
+
+                            </ul>
+                        </li>
+                        <li class="nav-item dropdown">
                             <a class="nav-link text-dark dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Reports</a>
                             <ul class="dropdown-menu">
                                 <li><a class="dropdown-item" asp-area="" asp-controller="LeaveReport" asp-action="Index">Report</a></li>
@@ -108,5 +125,14 @@
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
     @await RenderSectionAsync("Scripts", required: false)
+    <script>
+        // let dropdowns = document.querySelectorAll('.dropdown-toggle')
+        // dropdowns.forEach((dd)=>{
+        //     dd.addEventListener('click', function (e) {
+        //         var el = this.nextElementSibling
+        //         el.style.display = el.style.display==='block'?'none':'block'
+        //     })
+        // })
+    </script>
 </body>
 </html>

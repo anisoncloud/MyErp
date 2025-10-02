@@ -25,13 +25,24 @@ namespace MyErp.Controllers
         public async Task<IActionResult> Index()
         {
 
-            var user = await _userManager.Users
+            /*var user = await _userManager.Users
                 .Include(x => x.Company)
                 .Include(y => y.Department)
                 .Include(z => z.Designation)
                 .Include(c=>c.EmployeeAttendances)
                 .ToListAsync();
-            return View(user);
+            return View(user);*/
+
+            var today = DateTime.Today;
+            var todaysEmployees = _context.EmployeeAttendances
+                .Where(x => x.InTime.Value.Date == today)
+                .Include(x => x.Users)
+                .ThenInclude(x=>x.Company)
+                .Include(x=>x.Users)
+                .ThenInclude(x => x.Department)
+
+                .ToList();
+            return View(todaysEmployees);
         }
 
         [HttpGet]
@@ -48,7 +59,9 @@ namespace MyErp.Controllers
             {
                 return NotFound();
             }
-            var attendanceExists = _context.EmployeeAttendances.FirstOrDefault(x=>x.EmployeeId == user.Id);
+            //var attendanceExists = _context.EmployeeAttendances.FirstOrDefault(x=>x.EmployeeId == user.Id);
+            var attendanceExists = _context.EmployeeAttendances
+                .FirstOrDefault(x=>x.InTime.Value.Date==DateTime.Today && x.EmployeeId == user.Id);
             if (attendanceExists == null)
             {
                 var employeeAttendance = new EmployeeAttendance
@@ -67,6 +80,16 @@ namespace MyErp.Controllers
                 _context.SaveChanges();
             }
                 return RedirectToAction("Create");
+        }
+        [HttpGet]
+        public IActionResult Details(string id)
+        {
+            var selectedMonth = DateTime.Now.Month;
+            var selectedMontAttendance = _context.EmployeeAttendances
+                .Where(x => x.InTime.Value.Month == selectedMonth && x.EmployeeId==id)
+                .Include(x => x.Users)
+                .ToList();
+            return View(selectedMontAttendance);
         }
     }
 }
