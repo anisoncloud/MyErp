@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using MyErp.Data;
 
@@ -11,9 +12,11 @@ using MyErp.Data;
 namespace MyErp.Migrations
 {
     [DbContext(typeof(AppDbContex))]
-    partial class AppDbContexModelSnapshot : ModelSnapshot
+    [Migration("20251003044101_ChartOfAccount")]
+    partial class ChartOfAccount
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -519,79 +522,6 @@ namespace MyErp.Migrations
                     b.HasKey("ID");
 
                     b.ToTable("EmployeeTypes");
-                });
-
-            modelBuilder.Entity("MyErp.Models.JournalEntry", b =>
-                {
-                    b.Property<int>("JournalEntryId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("JournalEntryId"));
-
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("CreatedBy")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Description")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("EntryDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime>("UpdatedAt")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("UpdatedBy")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("JournalEntryId");
-
-                    b.ToTable("JournalEntries");
-                });
-
-            modelBuilder.Entity("MyErp.Models.JournalLine", b =>
-                {
-                    b.Property<int>("JournalLineId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("JournalLineId"));
-
-                    b.Property<int>("AccountId")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("CreatedBy")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<decimal>("Credit")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<decimal>("Debit")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<int>("JournalEntryId")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("UpdatedAt")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("UpdatedBy")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("JournalLineId");
-
-                    b.HasIndex("AccountId");
-
-                    b.HasIndex("JournalEntryId");
-
-                    b.ToTable("JournalLines");
                 });
 
             modelBuilder.Entity("MyErp.Models.Lead", b =>
@@ -1229,25 +1159,6 @@ namespace MyErp.Migrations
                     b.Navigation("Users");
                 });
 
-            modelBuilder.Entity("MyErp.Models.JournalLine", b =>
-                {
-                    b.HasOne("MyErp.Models.ChartOfAccount", "Account")
-                        .WithMany("Lines")
-                        .HasForeignKey("AccountId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("MyErp.Models.JournalEntry", "JournalEntry")
-                        .WithMany("Lines")
-                        .HasForeignKey("JournalEntryId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Account");
-
-                    b.Navigation("JournalEntry");
-                });
-
             modelBuilder.Entity("MyErp.Models.Lead", b =>
                 {
                     b.HasOne("MyErp.Models.CrmCompany", "CrmCompanies")
@@ -1399,11 +1310,6 @@ namespace MyErp.Migrations
                     b.Navigation("Manager");
                 });
 
-            modelBuilder.Entity("MyErp.Models.ChartOfAccount", b =>
-                {
-                    b.Navigation("Lines");
-                });
-
             modelBuilder.Entity("MyErp.Models.Company", b =>
                 {
                     b.Navigation("Users");
@@ -1429,11 +1335,6 @@ namespace MyErp.Migrations
             modelBuilder.Entity("MyErp.Models.EmployeeType", b =>
                 {
                     b.Navigation("Entitlements");
-                });
-
-            modelBuilder.Entity("MyErp.Models.JournalEntry", b =>
-                {
-                    b.Navigation("Lines");
                 });
 
             modelBuilder.Entity("MyErp.Models.LeaveType", b =>

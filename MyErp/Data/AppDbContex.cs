@@ -37,6 +37,11 @@ namespace MyErp.Data
         public DbSet<Domain> Domains { get; set; }
         public DbSet<CrmContact> CrmContacts { get; set; }
         public DbSet<EmployeeAttendance> EmployeeAttendances { get; set; }
+        public DbSet<ChartOfAccount> ChartOfAccounts { get; set; }
+        public DbSet<JournalEntry> JournalEntries { get; set; }
+        public DbSet<JournalLine> JournalLines { get; set; }
+
+
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder); // this is required

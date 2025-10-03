@@ -1,0 +1,52 @@
+﻿@using Microsoft.AspNetCore.Mvc.Rendering
+@model MyErp.Models.JournalEntry
+
+
+<h2>Create Journal Entry</h2>
+
+<form asp-action="Create" method="post">
+    @Html.AntiForgeryToken()
+    <div class="form-group">
+        <label asp-for="EntryDate"></label>
+        <input asp-for="EntryDate" class="form-control" type="date" />
+    </div>
+    <div class="form-group">
+        <label asp-for="Description"></label>
+        <input asp-for="Description" class="form-control" required />
+
+    </div>
+
+    <h4>Journal Lines</h4>
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Account</th>
+                <th>Debit</th>
+                <th>Credit</th>
+            </tr>
+        </thead>
+        <tbody>
+            @for (int i = 0; i < Model.Lines.Count; i++)
+            {
+                <tr>
+                    <td>
+                        <select asp-for="Lines[@i].AccountId"
+                                asp-items="@(new SelectList(ViewBag.Accounts, "AccountId", "AccountName"))"
+                                class="form-control" required>
+                                <option value="">---Select Account---</option>
+                        </select>
+                    </td>
+                    <td>
+                        <input asp-for="Lines[@i].Debit" class="form-control" required />
+                    </td>
+                    <td>
+                        <input asp-for="Lines[@i].Credit" class="form-control" required />
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    <button type="submit" class="btn btn-success">Save</button>
+    <a asp-action="Index" class="btn btn-secondary">Cancel</a>
+</form>

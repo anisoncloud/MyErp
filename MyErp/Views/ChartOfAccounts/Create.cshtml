@@ -1,0 +1,43 @@
+﻿@model MyErp.Models.ChartOfAccount
+
+<h2>Create Account</h2>
+
+<form asp-action="Create" method="post">
+    <div class="mb-3">
+        <label asp-for="AccountCode"></label>
+        <input asp-for="AccountCode" class="form-control" />
+    </div>
+    <div class="mb-3">
+        <label asp-for="AccountName"></label>
+        <input asp-for="AccountName" class="form-control" />
+    </div>
+    <div class="mb-3">
+        <label asp-for="AccountType"></label>
+        <select asp-for="AccountType" class="form-control">
+            <option>Asset</option>
+            <option>Liability</option>
+            <option>Equity</option>
+            <option>Income</option>
+            <option>Expense</option>
+        </select>
+    </div>
+    <div class="mb-3">
+        <label asp-for="SubType"></label>
+        <input asp-for="SubType" class="form-control" />
+    </div>
+    <div class="mb-3">
+        <label asp-for="OpeningBalance"></label>
+        <input asp-for="OpeningBalance" class="form-control" />
+    </div>
+    <div class="mb-3">
+        <label asp-for="ParentAccountId">Parent Account</label>
+        <select asp-for="ParentAccountId"
+                asp-items="@(new SelectList(ViewData["ParentAccounts"] as List<MyErp.Models.ChartOfAccount>, "AccountId", "AccountName"))"
+                class="form-control">
+            <option value="">-- None --</option>
+        </select>
+    </div>
+    <p></p>
+    <button type="submit" class="btn btn-success">Save</button>
+    <a asp-action="Index" class="btn btn-secondary">Cancel</a>
+</form>
