@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace MyErp.Models
 {
+    //[DebitOrCreditRequired]
     public class JournalLine : BaseEntity
     {
         public int JournalLineId {  get; set; }
@@ -13,10 +14,10 @@ namespace MyErp.Models
         public int AccountId {  get; set; }
         [ValidateNever]
         public ChartOfAccount Account { get; set; }
-        [Required]
+        
         [Column(TypeName = "decimal(18,2)")]
         public decimal Debit {  get; set; }
-        [Required]
+       
         [Column(TypeName = "decimal(18,2)")]
         public decimal Credit { get; set; }
     }

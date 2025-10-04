@@ -8,7 +8,7 @@ namespace MyErp.Models
         public DateTime EntryDate {  get; set; }= DateTime.Now;
         [Required]
         public string Description { get; set; }
-        [Required]
+        //[Required]
         public List<JournalLine> Lines { get; set; }= new List<JournalLine>();
     }
 }

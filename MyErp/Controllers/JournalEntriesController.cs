@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using MyErp.Data;
 using MyErp.Models;
@@ -25,11 +26,24 @@ namespace MyErp.Controllers
         }
 
         // GET: JournalEntries/Create
-        public IActionResult Create()
+        public async Task<IActionResult> Create()
         {
-            ViewData["Accounts"] = _context.ChartOfAccounts.ToList();
-            return View(new JournalEntry { Lines = new List<JournalLine> { 
-                new JournalLine(), new JournalLine() } });
+            /*ViewData["Accounts"] = _context.ChartOfAccounts.ToList();
+            return View(new JournalEntry
+            {
+                Lines = new List<JournalLine> {
+                new JournalLine(), new JournalLine() }
+            });*/
+            var accounts = _context.ChartOfAccounts.
+                Select(x=> new SelectListItem
+                {
+                    Value = x.AccountId.ToString(),
+                    Text = x.AccountName
+                }).ToList();
+            /*ViewBag.Accounts = await _context.ChartOfAccounts.ToListAsync(); 
+            return View();
+            */
+            return View(accounts);
         }
 
         // POST: JournalEntries/Create

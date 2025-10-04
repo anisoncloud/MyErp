@@ -1,0 +1,35 @@
+﻿@model MyErp.Models.JournalEntry
+
+<h2>Create Journal Entry</h2>
+
+<form asp-action="Create">
+    <div class="form-group">
+        <label asp-for="EntryDate"></label>
+        <input asp-for="EntryDate" class="form-control" type="date" />
+    </div>
+    <div class="form-group">
+        <label asp-for="Description"></label>
+        <input asp-for="Description" class="form-control" />
+    </div>
+    <div id="ledger-entries">
+        <div class="ledger-entry d-flex">
+            <select name="accountIds" class="form-control">
+                @foreach (var account in ViewBag.Accounts)
+                {
+                    <option value="@account.AccountId">@account.AccountName</option>
+                }
+            </select>
+            <input type="number" name="debits" class="form-control" placeholder="Debit" />
+            <input type="number" name="credits" class="form-control" placeholder="Credit" />
+        </div>
+    </div>
+    <button type="button" onclick="addLedgerEntry()">Add Another Entry</button>
+    <button type="submit" class="btn btn-primary">Create</button>
+</form>
+
+<script>
+    function addLedgerEntry() {
+        var entry = document.querySelector('.ledger-entry').cloneNode(true);
+        document.getElementById('ledger-entries').appendChild(entry);
+    }
+</script>
