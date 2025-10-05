@@ -15,7 +15,6 @@
         <input asp-for="Description" class="form-control" required />
 
     </div>
-    <select asp-for="@Model.AccountId"
 
     <h4>Journal Lines</h4>
     <table class="table table-bordered">
@@ -32,7 +31,7 @@
                 <tr>
                     <td>
                         <select asp-for="Lines[@i].AccountId"
-                                asp-items="Lines[@i].AccountId"
+                                asp-items="@(new SelectList(ViewBag.Accounts, "AccountId", "AccountName"))"
                                 class="form-control" required>
                             <option value="">---Select Account---</option>
                         </select>
