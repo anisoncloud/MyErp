@@ -28,7 +28,12 @@ namespace MyErp.Controllers
         // GET: JournalEntries/Create
         public async Task<IActionResult> Create()
         {
-            ViewData["Accounts"] = _context.ChartOfAccounts.ToList();
+            ViewData["Accounts"] = _context.ChartOfAccounts
+                .Select(x=> new
+                {
+                    x.AccountId,
+                    DisplayText = x.AccountCode +  " " + x.AccountName
+                }).ToList();
             return View(new JournalEntry
             {
                 Lines = new List<JournalLine> {
@@ -97,13 +102,13 @@ namespace MyErp.Controllers
                     if (account != null)
                     {
                         // For Assets & Expenses: Debit increases, Credit decreases
-                        if (account.AccountType == "Asset" || account.AccountType == "Expense")
+                        if (account.AccountType == "Assets" || account.AccountType == "Operating Expense" || account.AccountType == "Other Expense")
                         {
                             account.CurrentBalance += line.Debit;
                             account.CurrentBalance -= line.Credit;
                         }
                         // For Liabilities, Equity, Income: Credit increases, Debit decreases
-                        else if (account.AccountType == "Liability" || account.AccountType == "Equity" || account.AccountType == "Income")
+                        else if (account.AccountType == "Liabilities" || account.AccountType == "Equity" || account.AccountType == "Revinue Income" || account.AccountType == "Cost Of Goods Sold (COGS)")
                         {
                             account.CurrentBalance -= line.Debit;
                             account.CurrentBalance += line.Credit;

@@ -31,7 +31,7 @@
                 <tr>
                     <td>
                         <select asp-for="Lines[@i].AccountId"
-                                asp-items="@(new SelectList(ViewBag.Accounts, "AccountId", "AccountName"))"
+                                asp-items="@(new SelectList(ViewBag.Accounts, "AccountId", "DisplayText"))"
                                 class="form-control" required>
                             <option value="">---Select Account---</option>
                         </select>
