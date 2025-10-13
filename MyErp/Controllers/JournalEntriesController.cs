@@ -21,7 +21,6 @@ namespace MyErp.Controllers
                 .Include(j => j.Lines)
                 .ThenInclude(l => l.Account)
                 .ToListAsync();
-
             return View(entries);
         }
 

@@ -10,5 +10,6 @@ namespace MyErp.Models
         public string Description { get; set; }
         //[Required]
         public List<JournalLine> Lines { get; set; }= new List<JournalLine>();
+        public string? VoucherType {  get; set; }
     }
 }
