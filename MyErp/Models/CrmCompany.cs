@@ -21,5 +21,6 @@ namespace MyErp.Models
       
         public ICollection<Domain>? Domains { get; set; }
         public ICollection<CrmContact>? CrmContacts { get; set; }
+        public ICollection<Hosting>? Hostings { get; set; }
     }
 }
