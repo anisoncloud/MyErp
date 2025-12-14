@@ -7,7 +7,7 @@
 <div class="account-container">
     <div class="attendance-box">
         <div class="col">
-            <h2 class="text-center display-6">Login</h2>
+            <h2 class="text-center display-6">Attendance</h2>
             <form asp-action="Create" method="post" class="mt-4">
                 @Html.AntiForgeryToken()
                 <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
@@ -27,5 +27,6 @@
 @section Scripts {
     @{
         await Html.RenderPartialAsync("_ValidationScriptsPartial");
+
     }
 }
