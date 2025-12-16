@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using MyErp.Data;
 using MyErp.Models;
+using MyErp.ViewModels;
 using System.Threading.Tasks;
 
 namespace MyErp.Controllers
@@ -33,9 +34,9 @@ namespace MyErp.Controllers
                 .ToListAsync();
             return View(user);*/
 
-            var today = DateTime.Today;
+            var today = DateTime.Today.Month;
             var todaysEmployees = _context.EmployeeAttendances
-                .Where(x => x.InTime.Value.Date == today)
+                .Where(x => x.InTime.Value.Date.Month == today)
                 .Include(x => x.Users)
                 .ThenInclude(x=>x.Company)
                 .Include(x=>x.Users)
@@ -90,6 +91,33 @@ namespace MyErp.Controllers
                 .Include(x => x.Users)
                 .ToList();
             return View(selectedMontAttendance);
+        }
+        [HttpGet]
+        public IActionResult MonthlyAttendance(int year, int month)
+        {
+            if (year==0 && month==0)
+            {                
+                year = DateTime.Today.Year;
+                month = DateTime.Today.Month;
+            }
+            var data = _context.EmployeeAttendances
+                .Where(a => a.InTime.Value.Year == year && a.InTime.Value.Month == month)
+                .GroupBy(a => new
+                {
+                    a.EmployeeId,
+                    Day = a.InTime.Value.Date
+                })
+                .GroupBy(g => g.Key.EmployeeId)
+                .Select(g => new MonthlyAttendanceViewModel
+                {
+                    EmployeeId = g.Key,
+                    EmployeeName = _context.Users
+                    .Where(e => e.Id == g.Key)
+                    .Select(e => e.FullName)
+                    .FirstOrDefault(),
+                    PresentDays = g.Count()
+                });
+            return View(data);
         }
     }
 }

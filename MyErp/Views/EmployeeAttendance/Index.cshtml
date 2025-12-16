@@ -76,12 +76,15 @@
         @for (int day = 1; day <= daysToShow; day++)
         {
             DateTime date = new DateTime(today.Year, today.Month, day);
+            bool isWeekend =
+            date.DayOfWeek == DayOfWeek.Friday ||
+            date.DayOfWeek == DayOfWeek.Saturday;
 
             <tr>
                 <td>@day</td>
                 <td>@date.ToString("dd MMM yyyy")</td>
                 <td>@date.ToString("dddd")</td>
-                <td>—</td>
+                <td>@(isWeekend ? "Week End" : "")</td>
             </tr>
         }
     </tbody>
