@@ -101,23 +101,32 @@ namespace MyErp.Controllers
                 month = DateTime.Today.Month;
             }
             var data = _context.EmployeeAttendances
-                .Where(a => a.InTime.Value.Year == year && a.InTime.Value.Month == month)
-                .GroupBy(a => new
+                .Where(
+                a => a.InTime.Value.Year == year
+                && a.InTime.Value.Month == month)
+                .Select(a => new
                 {
                     a.EmployeeId,
-                    Day = a.InTime.Value.Date
+                    Day = a.InTime.Value.Date,
+                    a.CustomEmployeeId
                 })
-                .GroupBy(g => g.Key.EmployeeId)
+                .Distinct()
+                .ToList();
+
+            var result = data
+                .GroupBy(x => x.EmployeeId)
                 .Select(g => new MonthlyAttendanceViewModel
                 {
                     EmployeeId = g.Key,
-                    EmployeeName = _context.Users
+                    CustomEmployeeId = _context.EmployeeAttendances.Where(e=>e.EmployeeId==g.Key).Select(a=>a.CustomEmployeeId).FirstOrDefault(),
+                    EmployeeName = _userManager.Users
                     .Where(e => e.Id == g.Key)
                     .Select(e => e.FullName)
                     .FirstOrDefault(),
                     PresentDays = g.Count()
-                });
-            return View(data);
+                }).ToList();
+
+            return View(result);
         }
     }
 }

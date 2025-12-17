@@ -7,6 +7,8 @@
 <table class="table table-bordered">
     <thead>
         <tr>
+            <th>EmployeeID</th>
+            <th>Custom Employee Id</th>
             <th>Employee</th>
             <th>Present Days</th>
         </tr>
@@ -15,6 +17,8 @@
         @foreach (var item in Model)
         {
             <tr>
+                <td>@item.EmployeeId</td>
+                <td>@item.CustomEmployeeId</td>
                 <td>@item.EmployeeName</td>
                 <td>@item.PresentDays</td>
             </tr>
