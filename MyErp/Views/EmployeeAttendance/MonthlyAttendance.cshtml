@@ -10,7 +10,9 @@
             <th>EmployeeID</th>
             <th>Custom Employee Id</th>
             <th>Employee</th>
+            <th>Working Days</th>
             <th>Present Days</th>
+            <th>Details</th>
         </tr>
     </thead>
     <tbody>
@@ -20,7 +22,9 @@
                 <td>@item.EmployeeId</td>
                 <td>@item.CustomEmployeeId</td>
                 <td>@item.EmployeeName</td>
+                <td>@item.WorkingDaysInAMonth</td>
                 <td>@item.PresentDays</td>
+                <td><a asp-action="Details" asp-controller="EmployeeAttendance" asp-route-id="@item.EmployeeId">Details</a></td>
             </tr>
         }
     </tbody>

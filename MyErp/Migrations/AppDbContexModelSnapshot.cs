@@ -209,7 +209,7 @@ namespace MyErp.Migrations
 
                     b.HasIndex("ParentAccountId");
 
-                    b.ToTable("ChartOfAccounts");
+                    b.ToTable("ChartOfAccounts", (string)null);
                 });
 
             modelBuilder.Entity("MyErp.Models.Company", b =>
@@ -244,7 +244,7 @@ namespace MyErp.Migrations
 
                     b.HasKey("ID");
 
-                    b.ToTable("Companies");
+                    b.ToTable("Companies", (string)null);
                 });
 
             modelBuilder.Entity("MyErp.Models.CrmCompany", b =>
@@ -259,6 +259,7 @@ namespace MyErp.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("CompanyEmail")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("CompanyPhone")
@@ -285,7 +286,7 @@ namespace MyErp.Migrations
 
                     b.HasKey("ID");
 
-                    b.ToTable("CrmCompanies");
+                    b.ToTable("CrmCompanies", (string)null);
                 });
 
             modelBuilder.Entity("MyErp.Models.CrmContact", b =>
@@ -334,7 +335,7 @@ namespace MyErp.Migrations
 
                     b.HasIndex("CrmCompanyId");
 
-                    b.ToTable("CrmContacts");
+                    b.ToTable("CrmContacts", (string)null);
                 });
 
             modelBuilder.Entity("MyErp.Models.Department", b =>
@@ -366,7 +367,7 @@ namespace MyErp.Migrations
 
                     b.HasKey("ID");
 
-                    b.ToTable("Departments");
+                    b.ToTable("Departments", (string)null);
                 });
 
             modelBuilder.Entity("MyErp.Models.Designation", b =>
@@ -398,7 +399,7 @@ namespace MyErp.Migrations
 
                     b.HasKey("DesignationID");
 
-                    b.ToTable("Designations");
+                    b.ToTable("Designations", (string)null);
                 });
 
             modelBuilder.Entity("MyErp.Models.Domain", b =>
@@ -462,7 +463,7 @@ namespace MyErp.Migrations
 
                     b.HasIndex("CompanyId");
 
-                    b.ToTable("Domains");
+                    b.ToTable("Domains", (string)null);
                 });
 
             modelBuilder.Entity("MyErp.Models.EmployeeAttendance", b =>
@@ -503,7 +504,7 @@ namespace MyErp.Migrations
 
                     b.HasIndex("EmployeeId");
 
-                    b.ToTable("EmployeeAttendances");
+                    b.ToTable("EmployeeAttendances", (string)null);
                 });
 
             modelBuilder.Entity("MyErp.Models.EmployeeType", b =>
@@ -520,7 +521,7 @@ namespace MyErp.Migrations
 
                     b.HasKey("ID");
 
-                    b.ToTable("EmployeeTypes");
+                    b.ToTable("EmployeeTypes", (string)null);
                 });
 
             modelBuilder.Entity("MyErp.Models.JournalEntry", b =>
@@ -555,7 +556,7 @@ namespace MyErp.Migrations
 
                     b.HasKey("JournalEntryId");
 
-                    b.ToTable("JournalEntries");
+                    b.ToTable("JournalEntries", (string)null);
                 });
 
             modelBuilder.Entity("MyErp.Models.JournalLine", b =>
@@ -596,7 +597,7 @@ namespace MyErp.Migrations
 
                     b.HasIndex("JournalEntryId");
 
-                    b.ToTable("JournalLines");
+                    b.ToTable("JournalLines", (string)null);
                 });
 
             modelBuilder.Entity("MyErp.Models.Lead", b =>
@@ -627,7 +628,7 @@ namespace MyErp.Migrations
 
                     b.HasIndex("CrmCompanyId");
 
-                    b.ToTable("Leads");
+                    b.ToTable("Leads", (string)null);
                 });
 
             modelBuilder.Entity("MyErp.Models.LeaveAllocation", b =>
@@ -683,7 +684,7 @@ namespace MyErp.Migrations
                         .IsUnique()
                         .HasFilter("[EmpId] IS NOT NULL");
 
-                    b.ToTable("LeaveAllocations");
+                    b.ToTable("LeaveAllocations", (string)null);
                 });
 
             modelBuilder.Entity("MyErp.Models.LeaveEntitlement", b =>
@@ -709,7 +710,7 @@ namespace MyErp.Migrations
 
                     b.HasIndex("LeaveTypeId");
 
-                    b.ToTable("LeaveEntitlements");
+                    b.ToTable("LeaveEntitlements", (string)null);
                 });
 
             modelBuilder.Entity("MyErp.Models.LeaveRequest", b =>
@@ -774,7 +775,7 @@ namespace MyErp.Migrations
 
                     b.HasIndex("EmpId");
 
-                    b.ToTable("LeaveRequests");
+                    b.ToTable("LeaveRequests", (string)null);
                 });
 
             modelBuilder.Entity("MyErp.Models.LeaveType", b =>
@@ -797,7 +798,7 @@ namespace MyErp.Migrations
 
                     b.HasKey("ID");
 
-                    b.ToTable("LeaveTypes");
+                    b.ToTable("LeaveTypes", (string)null);
                 });
 
             modelBuilder.Entity("MyErp.Models.MainCategory", b =>
@@ -817,7 +818,7 @@ namespace MyErp.Migrations
 
                     b.HasKey("ID");
 
-                    b.ToTable("MainCategories");
+                    b.ToTable("MainCategories", (string)null);
                 });
 
             modelBuilder.Entity("MyErp.Models.People", b =>
@@ -837,7 +838,7 @@ namespace MyErp.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Peoples");
+                    b.ToTable("Peoples", (string)null);
                 });
 
             modelBuilder.Entity("MyErp.Models.PeopleProject", b =>
@@ -855,7 +856,7 @@ namespace MyErp.Migrations
 
                     b.HasIndex("ProjectId");
 
-                    b.ToTable("PeopleProjects");
+                    b.ToTable("PeopleProjects", (string)null);
                 });
 
             modelBuilder.Entity("MyErp.Models.Post", b =>
@@ -875,7 +876,7 @@ namespace MyErp.Migrations
 
                     b.HasKey("PostId");
 
-                    b.ToTable("Posts");
+                    b.ToTable("Posts", (string)null);
                 });
 
             modelBuilder.Entity("MyErp.Models.PostCategory", b =>
@@ -895,7 +896,7 @@ namespace MyErp.Migrations
 
                     b.HasKey("ID");
 
-                    b.ToTable("PostCategories");
+                    b.ToTable("PostCategories", (string)null);
                 });
 
             modelBuilder.Entity("MyErp.Models.PostCategoryPost", b =>
@@ -913,7 +914,7 @@ namespace MyErp.Migrations
 
                     b.HasIndex("PostId");
 
-                    b.ToTable("PostCategoryPosts");
+                    b.ToTable("PostCategoryPosts", (string)null);
                 });
 
             modelBuilder.Entity("MyErp.Models.Product", b =>
@@ -934,7 +935,7 @@ namespace MyErp.Migrations
 
                     b.HasKey("ID");
 
-                    b.ToTable("Products");
+                    b.ToTable("Products", (string)null);
                 });
 
             modelBuilder.Entity("MyErp.Models.ProductMainCategory", b =>
@@ -952,7 +953,7 @@ namespace MyErp.Migrations
 
                     b.HasIndex("CategoryId");
 
-                    b.ToTable("ProductMainCategories");
+                    b.ToTable("ProductMainCategories", (string)null);
                 });
 
             modelBuilder.Entity("MyErp.Models.Project", b =>
@@ -993,7 +994,7 @@ namespace MyErp.Migrations
 
                     b.HasKey("ID");
 
-                    b.ToTable("Projects");
+                    b.ToTable("Projects", (string)null);
                 });
 
             modelBuilder.Entity("MyErp.Models.UserDetails", b =>
@@ -1025,7 +1026,7 @@ namespace MyErp.Migrations
                     b.HasIndex("UserId")
                         .IsUnique();
 
-                    b.ToTable("UserDetails");
+                    b.ToTable("UserDetails", (string)null);
                 });
 
             modelBuilder.Entity("MyErp.Models.Users", b =>

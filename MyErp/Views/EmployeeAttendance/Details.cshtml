@@ -29,3 +29,59 @@
         }
     </tbody>
 </table>
+@{
+    ViewData["Title"] = "Monthly Working Day Table";
+
+    DateTime today = DateTime.Today;
+    DateTime selectedDate = today;
+
+    if (!string.IsNullOrEmpty(Context.Request.Query["selectedDate"]))
+    {
+        DateTime.TryParse(Context.Request.Query["selectedDate"], out selectedDate);
+    }
+
+    // Restrict to current month
+    if (selectedDate.Month != today.Month || selectedDate.Year != today.Year)
+    {
+        selectedDate = today;
+    }
+
+    int daysToShow = selectedDate.Day;
+}
+
+<form method="get" class="mb-3">
+    <label>Select Date:</label>
+    <input type="date"
+           name="selectedDate"
+           value="@selectedDate.ToString("yyyy-MM-dd")"
+           max="@today.ToString("yyyy-MM-dd")"
+           class="form-control w-25 d-inline"
+           onchange="this.form.submit()" />
+</form>
+
+<table class="table table-bordered table-striped">
+    <thead class="table-dark">
+        <tr>
+            <th>#</th>
+            <th>Date</th>
+            <th>Day Name</th>
+            <th>Status</th>
+        </tr>
+    </thead>
+    <tbody>
+        @for (int day = 1; day <= daysToShow; day++)
+        {
+            DateTime date = new DateTime(today.Year, today.Month, day);
+            bool isWeekend =
+            date.DayOfWeek == DayOfWeek.Friday ||
+            date.DayOfWeek == DayOfWeek.Saturday;
+
+            <tr>
+                <td>@day</td>
+                <td>@date.ToString("dd MMM yyyy")</td>
+                <td>@date.ToString("dddd")</td>
+                <td>@(isWeekend ? "Week End" : "")</td>
+            </tr>
+        }
+    </tbody>
+</table>

@@ -95,11 +95,14 @@ namespace MyErp.Controllers
         [HttpGet]
         public IActionResult MonthlyAttendance(int year, int month)
         {
+            int WorkingDaysInAMonth;
             if (year==0 && month==0)
             {                
                 year = DateTime.Today.Year;
                 month = DateTime.Today.Month;
-            }
+            }            
+                WorkingDaysInAMonth = GetWorkingDays(year, month);
+            
             var data = _context.EmployeeAttendances
                 .Where(
                 a => a.InTime.Value.Year == year
@@ -112,7 +115,6 @@ namespace MyErp.Controllers
                 })
                 .Distinct()
                 .ToList();
-
             var result = data
                 .GroupBy(x => x.EmployeeId)
                 .Select(g => new MonthlyAttendanceViewModel
@@ -123,10 +125,30 @@ namespace MyErp.Controllers
                     .Where(e => e.Id == g.Key)
                     .Select(e => e.FullName)
                     .FirstOrDefault(),
-                    PresentDays = g.Count()
+                    PresentDays = g.Count(),
+                    WorkingDaysInAMonth = WorkingDaysInAMonth
                 }).ToList();
-
             return View(result);
+        }
+
+        public int GetWorkingDays(int year, int month)
+        {
+            
+            int TotalDaysInAMonth = DateTime.DaysInMonth(year, month);
+            if (year == DateTime.Today.Year && month == DateTime.Today.Month)
+            {
+                TotalDaysInAMonth = DateTime.Today.Day;
+            }
+            int WorkingDaysInAMonth = 0;
+            for (int day = 1; day < TotalDaysInAMonth; day++)
+            {
+                var Date = new DateTime(year, month, day);
+                if (Date.DayOfWeek != DayOfWeek.Friday && Date.DayOfWeek != DayOfWeek.Saturday)
+                {
+                    WorkingDaysInAMonth++;
+                }
+            }
+            return WorkingDaysInAMonth;
         }
     }
 }

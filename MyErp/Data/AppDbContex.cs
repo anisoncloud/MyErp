@@ -40,6 +40,7 @@ namespace MyErp.Data
         public DbSet<ChartOfAccount> ChartOfAccounts { get; set; }
         public DbSet<JournalEntry> JournalEntries { get; set; }
         public DbSet<JournalLine> JournalLines { get; set; }
+        //public DbSet<PublicHolidays> PublicHolidays { get; set; }
 
 
         protected override void OnModelCreating(ModelBuilder builder)
