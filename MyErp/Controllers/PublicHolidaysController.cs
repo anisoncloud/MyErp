@@ -24,12 +24,14 @@ namespace MyErp.Controllers
             return View();
         }
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public IActionResult Create(PublicHolidays model)
         {
             if (!ModelState.IsValid) 
             {
                 return View(model);
             }
+            _context.PublicHolidays.Add(model);
             _context.SaveChanges();
             return RedirectToAction("Index");
         }

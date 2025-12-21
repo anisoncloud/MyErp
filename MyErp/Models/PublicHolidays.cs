@@ -6,6 +6,6 @@
         public string HolidayName {  get; set; }
         public DateOnly HolidayDate {  get; set; }
         public string? Description { get; set; }
-        public bool? IsPublicHoliday { get; set; }
+        public bool IsPublicHoliday { get; set; }
     }
 }
