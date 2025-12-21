@@ -1,0 +1,28 @@
+﻿@model IEnumerable<MyErp.Models.PublicHolidays>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Date</th>
+            <th scope="col">Name</th>
+            <th scope="col">Is Holiday</th>
+        </tr>
+    </thead>
+    <tbody>
+        @{
+            var serial = 1;
+        }
+        @foreach (var item in Model)
+        {
+            <tr>
+                <th scope="row">@serial</th>
+                <td>@item.HolidayDate</td>
+                <td>@item.HolidayName </td>
+                <td>@item.IsPublicHoliday</td>
+            </tr>
+            serial++;
+        }
+    </tbody>
+</table>
+<a asp-action="Create">Create</a>

@@ -35,12 +35,13 @@ namespace MyErp.Data
         public DbSet<LeaveAllocation> LeaveAllocations { get; set; }
         public DbSet<LeaveRequest> LeaveRequests { get; set; }
         public DbSet<Domain> Domains { get; set; }
+        public DbSet<Hosting> Hostings { get; set; }
         public DbSet<CrmContact> CrmContacts { get; set; }
         public DbSet<EmployeeAttendance> EmployeeAttendances { get; set; }
         public DbSet<ChartOfAccount> ChartOfAccounts { get; set; }
         public DbSet<JournalEntry> JournalEntries { get; set; }
         public DbSet<JournalLine> JournalLines { get; set; }
-        //public DbSet<PublicHolidays> PublicHolidays { get; set; }
+        public DbSet<PublicHolidays> PublicHolidays { get; set; }
 
 
         protected override void OnModelCreating(ModelBuilder builder)
