@@ -131,10 +131,12 @@ namespace MyErp.Controllers
             return View(result);
         }
 
+        // Get Working days in a Month
         public int GetWorkingDays(int year, int month)
         {
             
             int TotalDaysInAMonth = DateTime.DaysInMonth(year, month);
+            // Year and Month Current then show only the current month
             if (year == DateTime.Today.Year && month == DateTime.Today.Month)
             {
                 TotalDaysInAMonth = DateTime.Today.Day;
@@ -149,6 +151,11 @@ namespace MyErp.Controllers
                 }
             }
             return WorkingDaysInAMonth;
+        }
+
+        public IActionResult DailyAttendance()
+        {
+            return View();
         }
     }
 }
