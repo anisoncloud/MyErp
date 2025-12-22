@@ -5,6 +5,7 @@ using MyErp.Data;
 using MyErp.Models;
 using MyErp.ViewModels;
 using System.Threading.Tasks;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace MyErp.Controllers
 {
@@ -155,8 +156,47 @@ namespace MyErp.Controllers
 
         public IActionResult EmployeeMonthlyDetails(string employeeId, int year, int month)
         {
+            var startDate = new DateTime(year, month, 1);
+            var endDate = startDate.AddMonths(1);
+            var holiDaysInAMonth = _context.PublicHolidays
+                .Where(h => h.HolidayDate >= startDate && h.HolidayDate < endDate)
+                .Select(h => h.HolidayDate.Date)
+                .ToHashSet();
+            var employeeAttendace = _context.EmployeeAttendances
+                .Where(e=>e.EmployeeId == employeeId && e.InTime>=startDate && e.InTime<endDate)
+                .ToList();
 
-            return View();
+            var result = new List<DailyAttendanceViewModel>();
+            for (var date = startDate; date<endDate; date.AddDays(1))
+            {
+                var dayAttendance = employeeAttendace
+                    .Where(a=>a.InTime.Value.Date  ==  date.Date)
+                    .OrderBy(a=>a.InTime)
+                    .FirstOrDefault();
+
+                string status;
+
+                if (date.DayOfWeek == DayOfWeek.Friday)
+                    status = "Friday";
+                else if (date.DayOfWeek == DayOfWeek.Saturday)
+                    status = "Saturday";
+                else if (holiDaysInAMonth.Contains(date.Date))
+                    status = "Holiday";
+                else if (dayAttendance != null)
+                    status = "Present";
+                else
+                    status = "Absent";
+
+                result.Add(new DailyAttendanceViewModel
+                {
+                    Date = date,
+                    InTime = dayAttendance?.InTime?.TimeOfDay,
+                    OutTime = dayAttendance?.OutTime?.TimeOfDay,
+                    Status = status
+                });
+            }
+
+            return View(result);
         }
     }
 }
