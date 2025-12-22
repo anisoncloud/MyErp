@@ -153,8 +153,9 @@ namespace MyErp.Controllers
             return WorkingDaysInAMonth;
         }
 
-        public IActionResult DailyAttendance()
+        public IActionResult EmployeeMonthlyDetails(string employeeId, int year, int month)
         {
+
             return View();
         }
     }
