@@ -24,7 +24,7 @@
                 <td>@item.EmployeeName</td>
                 <td>@item.WorkingDaysInAMonth</td>
                 <td>@item.PresentDays</td>
-                <td><a asp-action="Details" asp-controller="EmployeeAttendance" asp-route-id="@item.EmployeeId">Details</a></td>
+                <td><a asp-action="EmployeeMonthlyDetails" asp-controller="EmployeeAttendance" asp-route-employeeId="@item.EmployeeId">Details</a></td>
             </tr>
         }
     </tbody>

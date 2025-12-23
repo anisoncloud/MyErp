@@ -14,7 +14,7 @@
         {
             <tr>
                 <td>@item.Date.ToString("dd-MMM-yyyy")</td>
-                <td>@(item.InTime?.ToString(@"hh\:mm") ?? "-")</td>
+                <td>@item.InTime</td>
                 <td>@(item.OutTime?.ToString(@"hh\:mm") ?? "-")</td>
                 <td>
                     <span class="badge

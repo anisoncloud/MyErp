@@ -156,6 +156,11 @@ namespace MyErp.Controllers
 
         public IActionResult EmployeeMonthlyDetails(string employeeId, int year, int month)
         {
+            if (year == 0 && month == 0)
+            {
+                year = DateTime.Today.Year;
+                month = DateTime.Today.Month;
+            }
             var startDate = new DateTime(year, month, 1);
             var endDate = startDate.AddMonths(1);
             var holiDaysInAMonth = _context.PublicHolidays
@@ -167,7 +172,7 @@ namespace MyErp.Controllers
                 .ToList();
 
             var result = new List<DailyAttendanceViewModel>();
-            for (var date = startDate; date<endDate; date.AddDays(1))
+            for (var date = startDate; date < endDate; date = date.AddDays(1))
             {
                 var dayAttendance = employeeAttendace
                     .Where(a=>a.InTime.Value.Date  ==  date.Date)
