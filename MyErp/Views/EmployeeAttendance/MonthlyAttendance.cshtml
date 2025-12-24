@@ -4,6 +4,41 @@
 *@
 @{
 }
+@{
+    ViewData["Title"] = "Monthly Working Day Table";
+
+    DateTime today = DateTime.Today;
+    DateTime selectedDate = today;
+
+    if (!string.IsNullOrEmpty(Context.Request.Query["selectedDate"]))
+    {
+        DateTime.TryParse(Context.Request.Query["selectedDate"], out selectedDate);
+    }
+
+    // Restrict to current month
+    if (selectedDate.Month != today.Month || selectedDate.Year != today.Year)
+    {
+        selectedDate = today;
+    }
+
+    int daysToShow = selectedDate.Day;
+}
+
+<form method="get" asp-action="MonthlyAttendance" class="mb-3"
+      onsubmit="
+        this.year.value = new Date(this.selectedDate.value).getFullYear();
+        this.month.value = new Date(this.selectedDate.value).getMonth() + 1;
+      ">
+    <label>Select Date:</label>
+    <input type="date"
+           name="selectedDate"
+           value="@selectedDate.ToString("yyyy-MM-dd")"
+           max="@today.ToString("yyyy-MM-dd")"
+           class="form-control w-25 d-inline"
+           onchange="this.form.submit()" />
+    <input type="hidden" name="year" value="@selectedDate.Year" />
+    <input type="hidden" name="month" value="@selectedDate.Month" />
+</form>
 <table class="table table-bordered">
     <thead>
         <tr>

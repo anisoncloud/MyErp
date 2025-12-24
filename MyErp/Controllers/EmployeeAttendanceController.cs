@@ -94,14 +94,21 @@ namespace MyErp.Controllers
             return View(selectedMontAttendance);
         }
         [HttpGet]
+        //public IActionResult MonthlyAttendance(int year, int month)
         public IActionResult MonthlyAttendance(int year, int month)
         {
-            int WorkingDaysInAMonth;
             if (year==0 && month==0)
+            {
+                year = DateTime.Today.Year;
+                month = DateTime.Today.Month;
+            }
+            
+            int WorkingDaysInAMonth;
+            /*if (year==0 && month==0)
             {                
                 year = DateTime.Today.Year;
                 month = DateTime.Today.Month;
-            }            
+            } */           
                 WorkingDaysInAMonth = GetWorkingDays(year, month);
             
             var data = _context.EmployeeAttendances
@@ -195,8 +202,8 @@ namespace MyErp.Controllers
                 result.Add(new DailyAttendanceViewModel
                 {
                     Date = date,
-                    InTime = dayAttendance?.InTime?.TimeOfDay,
-                    OutTime = dayAttendance?.OutTime?.TimeOfDay,
+                    InTime = dayAttendance?.InTime,
+                    OutTime = dayAttendance?.OutTime,
                     Status = status
                 });
             }
