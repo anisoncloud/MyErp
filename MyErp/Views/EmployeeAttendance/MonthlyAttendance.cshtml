@@ -1,44 +1,21 @@
 ﻿@model IEnumerable<MyErp.ViewModels.MonthlyAttendanceViewModel>
-@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+
 @{
-}
-@{
-    ViewData["Title"] = "Monthly Working Day Table";
-
-    DateTime today = DateTime.Today;
-    DateTime selectedDate = today;
-
-    if (!string.IsNullOrEmpty(Context.Request.Query["selectedDate"]))
-    {
-        DateTime.TryParse(Context.Request.Query["selectedDate"], out selectedDate);
-    }
-
-    // Restrict to current month
-    if (selectedDate.Month != today.Month || selectedDate.Year != today.Year)
-    {
-        selectedDate = today;
-    }
-
-    int daysToShow = selectedDate.Day;
+    var maxDate = DateTime.Now.ToString("yyyy-MM-dd");
 }
 
-<form method="get" asp-action="MonthlyAttendance" class="mb-3"
-      onsubmit="
-        this.year.value = new Date(this.selectedDate.value).getFullYear();
-        this.month.value = new Date(this.selectedDate.value).getMonth() + 1;
-      ">
+<form method="get" asp-action="MonthlyAttendance" id="dateForm" class="mb-3">
     <label>Select Date:</label>
-    <input type="date"
-           name="selectedDate"
-           value="@selectedDate.ToString("yyyy-MM-dd")"
-           max="@today.ToString("yyyy-MM-dd")"
+    <input type="date" id="datePicker"
+           name="selectedDate"           
+           max="@maxDate"
            class="form-control w-25 d-inline"
-           onchange="this.form.submit()" />
-    <input type="hidden" name="year" value="@selectedDate.Year" />
-    <input type="hidden" name="month" value="@selectedDate.Month" />
+           value="@(((DateTime)ViewBag.SelectedDate).ToString("yyyy-MM-dd"))"
+           />
+    <input type="hidden" name="year" id="year" />
+    <input type="hidden" name="month" id="month" />
 </form>
+
 <table class="table table-bordered">
     <thead>
         <tr>
@@ -59,8 +36,20 @@
                 <td>@item.EmployeeName</td>
                 <td>@item.WorkingDaysInAMonth</td>
                 <td>@item.PresentDays</td>
-                <td><a asp-action="EmployeeMonthlyDetails" asp-controller="EmployeeAttendance" asp-route-employeeId="@item.EmployeeId">Details</a></td>
+                <td><a asp-action="EmployeeMonthlyDetails" asp-controller="EmployeeAttendance" asp-route-employeeId="@item.EmployeeId" asp-route-year="@(((DateTime)ViewBag.SelectedDate).ToString("yyyy"))" asp-route-month="@(((DateTime)ViewBag.SelectedDate).ToString("MM"))">Details</a></td>
             </tr>
         }
     </tbody>
 </table>
+
+        @section AttendanceScript{
+            <script>
+                document.getElementById('datePicker').addEventListener('change', function(){
+                    const date = new Date(this.value);
+                    document.getElementById('year').value = date.getFullYear();
+                    document.getElementById('month').value = date.getMonth()+1;
+                    document.getElementById('dateForm').submit();
+                    //document.getElementById('datePicker').value=date;
+                });
+            </script>
+        }

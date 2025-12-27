@@ -94,9 +94,11 @@ namespace MyErp.Controllers
             return View(selectedMontAttendance);
         }
         [HttpGet]
-        //public IActionResult MonthlyAttendance(int year, int month)
-        public IActionResult MonthlyAttendance(int year, int month)
+        public IActionResult MonthlyAttendance(DateTime? selectedDate, int year, int month)
         {
+            selectedDate ??= DateTime.Today;
+            //DateTime selectedDate = new DateTime(year, month, 1);
+            ViewBag.SelectedDate = selectedDate;
             if (year==0 && month==0)
             {
                 year = DateTime.Today.Year;
